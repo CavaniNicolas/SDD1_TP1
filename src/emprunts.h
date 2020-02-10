@@ -1,7 +1,7 @@
 #ifndef empruntsH
 #define empruntsH
 
-void afficherEmprunts(emprunts_t *);
+void afficherEmprunts(emprunts_t const *);
 
 void emprunterLivre(char *, biblio_t *, emprunts_t **);
 int chercherExistence(biblio_t *, char[4], int);
