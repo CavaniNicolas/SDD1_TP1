@@ -1,5 +1,5 @@
-#ifndef TP1
-#define TP1
+#ifndef communH
+#define communH
 
 //doxygen documentation generator
 //greffon pour code
@@ -21,10 +21,7 @@ typedef struct biblio{ //liste non triée
 typedef struct emprunts{ //triée sur la date retour en croissant
 	int numero;
 	char DateRetour[9]; //forme AAAAMMJJ
+	struct emprunts * suiv;
 }emprunts_t;
-
-
-void lireFichier_creerListes(char *, biblio_t **, emprunts_t **);
-
 
 #endif
