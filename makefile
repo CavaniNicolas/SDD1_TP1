@@ -1,5 +1,5 @@
 #option
-CFLAGS = -Wall -Wextra -g -MMD 
+CFLAGS = -Wall -Wextra -g -MMD
 LIB = -lm
 
 SRC = $(wildcard src/*.c)

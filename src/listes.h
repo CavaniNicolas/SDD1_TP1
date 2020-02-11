@@ -1,9 +1,9 @@
 #ifndef listesH
 #define listesH
 
-void lireFichier_creerListes(char *, biblio_t **);
-void afficher(biblio_t *);
-void remove_finchaine_r_windows(char *);
-void libererlistes(biblio_t **, emprunts_t **);
+void createLibrary(char *, library_t **);
+void displayLibrary(library_t *);
+void remove_endstr_r_windows(char *);
+void freeAllLists(library_t **, borrowings_t **);
 
 #endif

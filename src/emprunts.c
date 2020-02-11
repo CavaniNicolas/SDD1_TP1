@@ -1,35 +1,36 @@
 
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "commun.h"
 #include "emprunts.h"
 
-void afficherEmprunts(emprunts_t const * trEmp) {
-	emprunts_t const * courEmp = trEmp;
+void displayBorrowings(borrowings_t const * borrowings) {
+	borrowings_t const * curBorrow = borrowings;
 	printf("on afficher la liste des emprunts\n");
-	while (courEmp != NULL) {
-		printf("bookNb:%d  returnDate:%s\n", courEmp->bookNb, courEmp->returnDate);
-		courEmp = courEmp->next;
+
+	while (curBorrow != NULL) {
+		printf("bookNb:%d  returnDate:%s\n", curBorrow->bookNb, curBorrow->returnDate);
+		curBorrow = curBorrow->next;
 	}
+
 }
 
-// Lit le fichier des emprunts et rempli la liste chainée
-void emprunterLivre(char * filename, biblio_t * trCat, emprunts_t ** trEmp){
+
+void borrowBook(char * filename, library_t * library, borrowings_t ** borrowings) {
 	FILE * file = NULL;
 	file = fopen(filename, "r");
 
-	if (file != NULL){
+	if (file != NULL) {
 		printf("on lit le fichier emprunts\n");
 		char category[4];
 		int bookNb = 0;
 		char date[9];
 
-		while (!feof(file)){
+		while (!feof(file)) {
 			fscanf(file, "%s %d %s", category, &bookNb, date);
-			if (chercherExistence(trCat, category, bookNb)) {
-				insertionEmprunts(trEmp, bookNb ,date);
+			if (isBookInLibrary(library, category, bookNb)) {
+				insertBorrowing(borrowings, bookNb ,date);
 			}
 		}
 		fclose(file);
@@ -39,48 +40,92 @@ void emprunterLivre(char * filename, biblio_t * trCat, emprunts_t ** trEmp){
 	}
 }
 
-//chercher dans la liste category si le livre emprunté existe
-//renvoie 1 si lelement a ete trouve
-int chercherExistence(biblio_t * trCat, char category[4], int bookNb) {
-	biblio_t * courCat = trCat;
-	books_t * courLiv = NULL;
-	bool booleen=false;
 
-	while (courCat != NULL && strcmp(courCat->category,category)) {
-		courCat=courCat->next;
+int isBookInLibrary(library_t * library, char category[4], int bookNb) {
+	library_t * curLib = library;
+	books_t * curBooks = NULL;
+	bool isIn = false;
+
+	while (curLib != NULL && strcmp(curLib->category, category)) {
+		curLib = curLib->next;
 	}
 
-	if (courCat != NULL){
-		courLiv = courCat->dbtBooks;
-		while (courLiv != NULL && courLiv->bookNb != bookNb) {
-			courLiv=courLiv->next;
+	if (curLib != NULL) {
+		curBooks = curLib->begBooks;
+		while (curBooks != NULL && curBooks->bookNb != bookNb) {
+			curBooks = curBooks->next;
 		}
 	}
-	if (courLiv!=NULL){
-		booleen=true;
+	if (curBooks != NULL) {
+		curBooks->isBorrowed = true;
+		isIn = true;
 	}
-	return booleen;
+	return isIn;
 }
 
-//insere le livre emprunté dans la liste emprunts
-void insertionEmprunts(emprunts_t ** trEmp, int bookNb, char date[9]){
-	emprunts_t * courEmp = *trEmp;
 
-	emprunts_t * elemEmp = (emprunts_t *)malloc(sizeof(emprunts_t));
-	if (elemEmp != NULL){
-		elemEmp->bookNb=bookNb;
-		strcpy(elemEmp->returnDate,date);
+void insertBorrowing(borrowings_t ** borrowings, int bookNb, char date[9]) {
+	borrowings_t * curBorrow = *borrowings;
 
-		if (courEmp != NULL && atoi(date) > atoi(courEmp->returnDate)){
-			while (courEmp->next!=NULL && atoi(date) > atoi(courEmp->next->returnDate)){
-				courEmp=courEmp->next;
+	borrowings_t * elemBorrow = (borrowings_t *)malloc(sizeof(borrowings_t));
+
+	if (elemBorrow != NULL) {
+		elemBorrow->bookNb = bookNb;
+		strcpy(elemBorrow->returnDate, date);
+
+		if (curBorrow != NULL && atoi(date) > atoi(curBorrow->returnDate)) {
+			while (curBorrow->next != NULL && atoi(date) > atoi(curBorrow->next->returnDate)) {
+				curBorrow=curBorrow->next;
 			}
-			elemEmp->next=courEmp->next;
-			courEmp->next=elemEmp;
+			elemBorrow->next = curBorrow->next;
+			curBorrow->next = elemBorrow;
 		}
 		else {
-			*trEmp=elemEmp;
-			elemEmp->next=courEmp;
+			*borrowings = elemBorrow;
+			elemBorrow->next = curBorrow;
 		}
 	}
+}
+
+
+void broughtBackBook(char * filename, library_t ** library, borrowings_t ** borrowings) {
+	FILE * file = NULL;
+	file = fopen(filename, "r");
+
+	if (file != NULL) {
+		char category[4];
+		int bookNb = 0;
+
+		while (!feof(file)) {
+			fscanf(file, "%s %d", category, &bookNb);
+			deleteBorrowing(borrowings, bookNb);
+			//isBorrowedToFalse(library_t);
+
+		}
+	}
+
+}
+
+
+void deleteBorrowing(borrowings_t ** borrowings, int bookNb) {
+	borrowings_t * curBorrow = *borrowings;
+	borrowings_t * prevBorrow = *borrowings;
+
+	while (curBorrow != NULL && curBorrow->bookNb != bookNb) {
+		prevBorrow = curBorrow;
+		curBorrow = curBorrow->next;
+	}
+
+	if (curBorrow != NULL) {
+		prevBorrow->next = curBorrow->next;
+	}
+	else {
+		prevBorrow->next = NULL;
+	}
+
+	if (curBorrow == *borrowings){
+		*borrowings = (*borrowings)->next;
+	}
+
+	free(curBorrow);
 }

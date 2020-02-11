@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "commun.h"
@@ -10,17 +11,21 @@ int main(int argc, char ** argv){
 		printf("Entrez un nom de fichier à lire\n");
 	}
 	else{
-		biblio_t * trCat = NULL;
-		emprunts_t * trEmp = NULL;
+		library_t * library = NULL;
+		borrowings_t * borrowings = NULL;
 
-		lireFichier_creerListes(argv[1], &trCat);
-		afficher(trCat);
+		createLibrary(argv[1], &library);
+		displayLibrary(library);
 
-		emprunterLivre("Emprunts.txt", trCat, &trEmp);
+		borrowBook("Emprunts.txt", library, &borrowings);
 
-		afficherEmprunts(trEmp);
+		displayBorrowings(borrowings);
+		displayLibrary(library);
 
-		libererlistes(&trCat, &trEmp);
+		deleteBorrowing(&borrowings, 15);
+		displayBorrowings(borrowings);
+
+		freeAllLists(&library, &borrowings);
 	}
 	return 0;
 }

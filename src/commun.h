@@ -1,27 +1,28 @@
 #ifndef communH
 #define communH
+#include <stdbool.h>
 
-//doxygen documentation generator
-//greffon pour code
+// doxygen documentation generator
+// Greffon pour code
 
-typedef struct books{ //triée selon numero bookNb croissant
+typedef struct books{ // Triée selon numero bookNb croissant
 	int bookNb;
 	char title[11];
-	int isBorrowed;
+	bool isBorrowed;
 	struct books * next;
 }books_t;
 
-typedef struct biblio{ //liste non triée
+typedef struct library{ // Liste non triée
 	char category[4];
-	struct books * dbtBooks;
-	struct books * finBooks;
-	struct biblio * next;
-}biblio_t;
+	struct books * begBooks;
+	struct books * endBooks;
+	struct library * next;
+}library_t;
 
-typedef struct emprunts{ //triée sur la date retour en croissant
+typedef struct borrowings{ // Triée sur la date retour en croissant
 	int bookNb;
-	char returnDate[9]; //forme AAAAMMJJ
-	struct emprunts * next;
-}emprunts_t;
+	char returnDate[9]; // Forme AAAAMMJJ
+	struct borrowings * next;
+}borrowings_t;
 
 #endif

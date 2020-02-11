@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,64 +9,62 @@
 // dans un scanf : %n permet de recuperer le nombre de caractere lu par le scanf
 // scanf return le nombre d'arguments quelle a rempli (largumetn %n nest pas pris en compte)
 
-void lireFichier_creerListes(char * filename, biblio_t ** trCat) {
+void createLibrary(char * filename, library_t ** library) {
 	FILE * file = NULL;
 	file = fopen(filename,"r");
 
 	if (file != NULL){
-		char nom_category[4];
-		int taille_category = 0;
+		char categoryName[4];
+		int categorySize = 0;
 		int i = 0;
 		int bookNb = 0;
 		char title[11];
 
-		biblio_t * elemCat;
-		biblio_t * courCat = *trCat;
+		library_t * elemLib;
+		library_t * curLib = *library;
 
-		books_t * elemLiv;
+		books_t * elemBooks;
 
 		while (!feof(file)) {
-			fscanf(file,"%s %d", nom_category, &taille_category);
-			// printf("%s %d\n",nom_category,taille_category);
+			fscanf(file,"%s %d", categoryName, &categorySize);
 			
-			elemCat = (biblio_t *)malloc(sizeof(biblio_t));
+			elemLib = (library_t *)malloc(sizeof(library_t));
 		
-			if (elemCat != NULL) {
-				// remove_finchaine_r_windows(nom_category);
-				strcpy(elemCat->category, nom_category);
-				elemCat->dbtBooks = NULL;
-				elemCat->finBooks = NULL;
-				elemCat->next = NULL;
+			if (elemLib != NULL) {
 
-				if (*trCat == NULL) {
-					*trCat=elemCat;
+				strcpy(elemLib->category, categoryName);
+				elemLib->begBooks = NULL;
+				elemLib->endBooks = NULL;
+				elemLib->next = NULL;
+
+				if (*library == NULL) {
+					*library=elemLib;
 				}
 				else {
-					courCat->next = elemCat;
+					curLib->next = elemLib;
 				}
-				courCat = elemCat;
+				curLib = elemLib;
 
 
-				for (i=0; i<taille_category; i++) {
+				for (i=0; i<categorySize; i++) {
 					fscanf(file, "%d %[^\n]", &bookNb, title);
-					// printf("%d %s\n",bookNb,title);
 
-					elemLiv = (books_t *)malloc(sizeof(books_t));
+					elemBooks = (books_t *)malloc(sizeof(books_t));
 
-					if (elemLiv != NULL) {
-						elemLiv->bookNb = bookNb;
-						remove_finchaine_r_windows(title);
-						strcpy(elemLiv->title, title);
-						elemLiv->isBorrowed = 0;
-						elemLiv->next = NULL;
+					if (elemBooks != NULL) {
+						elemBooks->bookNb = bookNb;
+						remove_endstr_r_windows(title);
+						strcpy(elemBooks->title, title);
+						elemBooks->isBorrowed = false;
+						elemBooks->next = NULL;
 
-						if (courCat->dbtBooks == NULL) {
-							courCat->dbtBooks = elemLiv;
+						if (curLib->begBooks == NULL) {
+							curLib->begBooks = elemBooks;
 						}
 						else {
-							courCat->finBooks->next = elemLiv;
+							curLib->endBooks->next = elemBooks;
 						}
-						courCat->finBooks = elemLiv;
+						curLib->endBooks = elemBooks;
 					}
 				}
 			}
@@ -78,53 +77,53 @@ void lireFichier_creerListes(char * filename, biblio_t ** trCat) {
 	}
 }
 
-void remove_finchaine_r_windows(char * ligne){
+void remove_endstr_r_windows(char * line){
 	int i = 0;
-	while (ligne[i]!='\0') {
+	while (line[i]!='\0') {
 		i++;
 	}
 	i--;
-	if (ligne[i] == '\r') {
-		ligne[i] = '\0';
+	if (line[i] == '\r') {
+		line[i] = '\0';
 	}
 }
 
-void afficher(biblio_t * tr) {
-	biblio_t * courCat = tr;
-	books_t * courLiv = NULL;
-	while (courCat != NULL) {
-		printf("%s\n", courCat->category);
-		courLiv = courCat->dbtBooks;
-		while (courLiv != NULL){
-			printf("%d %s %d\n", courLiv->bookNb, courLiv->title, courLiv->isBorrowed);
-			courLiv = courLiv->next;
+void displayLibrary(library_t * library) {
+	library_t * curLib = library;
+	books_t * curBooks = NULL;
+	while (curLib != NULL) {
+		printf("%s\n", curLib->category);
+		curBooks = curLib->begBooks;
+		while (curBooks != NULL) {
+			printf("%d %s %d\n", curBooks->bookNb, curBooks->title, curBooks->isBorrowed);
+			curBooks = curBooks->next;
 		}
-		courCat = courCat->next;
+		curLib = curLib->next;
 	}
 }
 
-void libererlistes(biblio_t ** trCat, emprunts_t ** trEmp) {
-	biblio_t * courCat = *trCat;
-	books_t * courLiv = NULL;
-	emprunts_t * courEmp = *trEmp;
+void freeAllLists(library_t ** library, borrowings_t ** borrowings) {
+	library_t * curLib = *library;
+	books_t * curBooks = NULL;
+	borrowings_t * curBorrow = *borrowings;
 
-	while (*trCat != NULL) {
-		courLiv = courCat->dbtBooks;
+	while (*library != NULL) {
+		curBooks = curLib->begBooks;
 
-		while (courCat->dbtBooks != NULL) {
-			courLiv = courLiv->next;
-			free(courCat->dbtBooks);
-			courCat->dbtBooks = courLiv;
+		while (curLib->begBooks != NULL) {
+			curBooks = curBooks->next;
+			free(curLib->begBooks);
+			curLib->begBooks = curBooks;
 		}
 		
-		courCat = courCat->next;
-		free(*trCat);
-		*trCat = courCat;
+		curLib = curLib->next;
+		free(*library);
+		*library = curLib;
 	}
 
-	while (*trEmp != NULL) {
-		courEmp = courEmp->next;
-		free(*trEmp);
-		*trEmp = courEmp;
+	while (*borrowings != NULL) {
+		curBorrow = curBorrow->next;
+		free(*borrowings);
+		*borrowings = curBorrow;
 	}
 }
