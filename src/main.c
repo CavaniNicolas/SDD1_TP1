@@ -22,8 +22,10 @@ int main(int argc, char ** argv){
 		displayBorrowings(borrowings);
 		displayLibrary(library);
 
-		deleteBorrowing(&borrowings, 15);
+		broughtBackBook("Rendus.txt", &library, &borrowings);
+
 		displayBorrowings(borrowings);
+		displayLibrary(library);
 
 		freeAllLists(&library, &borrowings);
 	}

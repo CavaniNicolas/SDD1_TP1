@@ -91,6 +91,8 @@ void remove_endstr_r_windows(char * line){
 void displayLibrary(library_t * library) {
 	library_t * curLib = library;
 	books_t * curBooks = NULL;
+	printf("\non affiche la liste bibliothèque\n");
+
 	while (curLib != NULL) {
 		printf("%s\n", curLib->category);
 		curBooks = curLib->begBooks;

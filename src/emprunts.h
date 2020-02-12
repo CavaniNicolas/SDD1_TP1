@@ -19,7 +19,7 @@ void insertBorrowing(borrowings_t **, int, char[9]);
 void broughtBackBook(char *, library_t **, borrowings_t **);
 
 void deleteBorrowing(borrowings_t ** , int );
-void isBorrowedToFalse(library_t **);
+void isBorrowedToFalse(library_t **, char[4], int);
 
 
 #endif

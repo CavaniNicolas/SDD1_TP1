@@ -7,7 +7,7 @@
 
 void displayBorrowings(borrowings_t const * borrowings) {
 	borrowings_t const * curBorrow = borrowings;
-	printf("on afficher la liste des emprunts\n");
+	printf("\non affiche la liste des emprunts\n");
 
 	while (curBorrow != NULL) {
 		printf("bookNb:%d  returnDate:%s\n", curBorrow->bookNb, curBorrow->returnDate);
@@ -16,7 +16,7 @@ void displayBorrowings(borrowings_t const * borrowings) {
 
 }
 
-
+// Fct pour ajouter un emprunt
 void borrowBook(char * filename, library_t * library, borrowings_t ** borrowings) {
 	FILE * file = NULL;
 	file = fopen(filename, "r");
@@ -87,7 +87,7 @@ void insertBorrowing(borrowings_t ** borrowings, int bookNb, char date[9]) {
 	}
 }
 
-
+// Fct pour supprimer un emprunt
 void broughtBackBook(char * filename, library_t ** library, borrowings_t ** borrowings) {
 	FILE * file = NULL;
 	file = fopen(filename, "r");
@@ -99,11 +99,32 @@ void broughtBackBook(char * filename, library_t ** library, borrowings_t ** borr
 		while (!feof(file)) {
 			fscanf(file, "%s %d", category, &bookNb);
 			deleteBorrowing(borrowings, bookNb);
-			//isBorrowedToFalse(library_t);
+			isBorrowedToFalse(library, category, bookNb);
 
 		}
 	}
 
+}
+
+
+void isBorrowedToFalse(library_t ** library, char category[4], int bookNb) {
+	library_t * curLib = *library;
+	books_t * curBooks = NULL;
+
+	while (curLib != NULL && strcmp(curLib->category,category)) {
+		curLib = curLib->next;
+	}
+	if (curLib != NULL) {
+		curBooks = curLib->begBooks;
+
+		while (curBooks != NULL && curBooks->bookNb != bookNb) {
+			curBooks = curBooks->next;
+		}
+	}
+
+	if (curBooks->bookNb == bookNb) {
+		curBooks->isBorrowed = false;
+	}
 }
 
 
@@ -123,7 +144,7 @@ void deleteBorrowing(borrowings_t ** borrowings, int bookNb) {
 		prevBorrow->next = NULL;
 	}
 
-	if (curBorrow == *borrowings){
+	if (curBorrow == *borrowings) {
 		*borrowings = (*borrowings)->next;
 	}
 
