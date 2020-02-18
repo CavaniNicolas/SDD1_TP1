@@ -6,11 +6,10 @@
 #include "listes.h"
 
 
-int main(int argc, char ** argv){
-	if (argc<2){
+int main(int argc, char ** argv) {
+	if (argc<2) {
 		printf("Entrez un nom de fichier à lire\n");
-	}
-	else{
+	} else{
 		library_t * library = NULL;
 		borrowings_t * borrowings = NULL;
 
