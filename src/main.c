@@ -9,26 +9,33 @@
 int main(int argc, char ** argv) {
 	if (argc<2) {
 		printf("Entrez un nom de fichier à lire\n");
-	} else{
+
+	} else {
 		library_t * library = NULL;
 		borrowings_t * borrowings = NULL;
 
+		int isStarted = 0;
+
+		printf("Créer la liste Bibliothèque et actualiser les livres empruntés ?\n\t1: Oui\n\t0: Non\n\t\t- ");
+		scanf("%d",&isStarted);
+
 		//while (menu(&library, &borrowings)) {}
 
-		createLibrary(argv[1], &library);
-		displayLibrary(library);
+		if (isStarted == 1) {
+			createLibrary(argv[1], &library);
+ 			borrowBook("Emprunts.txt", library, &borrowings);
+			broughtBackBook("Rendus.txt", &library, &borrowings);
 
-		borrowBook("Emprunts.txt", library, &borrowings);
+			// menu
 
-		displayBorrowings(borrowings);
-		displayLibrary(library);
+			displayBorrowings(borrowings);
+			displayLibrary(library);
 
-		broughtBackBook("Rendus.txt", &library, &borrowings);
+			freeAllLists(&library, &borrowings);
 
-		displayBorrowings(borrowings);
-		displayLibrary(library);
-
-		freeAllLists(&library, &borrowings);
+		} else {
+			printf("Quitter\n");
+		}
 	}
 	return 0;
 }
