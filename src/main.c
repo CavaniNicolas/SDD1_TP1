@@ -13,6 +13,8 @@ int main(int argc, char ** argv) {
 		library_t * library = NULL;
 		borrowings_t * borrowings = NULL;
 
+		//while (menu(&library, &borrowings)) {}
+
 		createLibrary(argv[1], &library);
 		displayLibrary(library);
 
