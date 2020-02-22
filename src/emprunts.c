@@ -24,21 +24,24 @@ void borrowBook(char * filename, library_t * library, borrowings_t ** borrowings
 
 	books_t * bookBorrowed = NULL;
 
-	if (file != NULL) {
-		printf("on lit le fichier emprunts\n");
-		char category[4];
-		int bookNb = 0;
-		char date[9];
+	if (library != NULL) {
+		if (file != NULL) {
+			printf("on lit le fichier emprunts\n");
+			char category[4];
+			int bookNb = 0;
+			char date[9];
 
-		while (!feof(file)) {
-			fscanf(file, "%s %d %s", category, &bookNb, date);
-			bookBorrowed = isBookInLibrary(library, category, bookNb);
-			insertBorrowing(borrowings, bookBorrowed ,date);
+			while (!feof(file)) {
+				fscanf(file, "%s %d %s", category, &bookNb, date);
+				bookBorrowed = isBookInLibrary(library, category, bookNb);
+				insertBorrowing(borrowings, bookBorrowed ,date);
+			}
+			fclose(file);
+		} else {
+			printf("Nom de fichier pour les emprunts inexistant\n");
 		}
-		fclose(file);
-	}
-	else{
-		printf("Nom de fichier pour les emprunts inexistant\n");
+	} else {
+		printf("Liste bibliotheque vide\n");
 	}
 }
 
@@ -96,17 +99,21 @@ void broughtBackBook(char * filename, library_t ** library, borrowings_t ** borr
 	FILE * file = NULL;
 	file = fopen(filename, "r");
 
-	if (file != NULL) {
-		char category[4];
-		int bookNb = 0;
+	if (*library != NULL) {
+		if (file != NULL) {
+			char category[4];
+			int bookNb = 0;
 
-		while (!feof(file)) {
-			fscanf(file, "%s %d", category, &bookNb);
-			deleteBorrowing(borrowings, bookNb);
-			isBorrowedToFalse(library, category, bookNb);
+			while (!feof(file)) {
+				fscanf(file, "%s %d", category, &bookNb);
+				deleteBorrowing(borrowings, bookNb);
+				isBorrowedToFalse(library, category, bookNb);
+			}
+		} else {
+			printf("Nom de fichier pour les retours inexistant\n");
 		}
 	} else {
-		printf("Nom de fichier pour les retours inexistant\n");
+		printf("Liste bibliotheque vide\n");
 	}
 }
 

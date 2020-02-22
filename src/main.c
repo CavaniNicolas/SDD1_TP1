@@ -23,8 +23,12 @@ int main(int argc, char ** argv) {
 
 		if (isStarted == 1) {
 			createLibrary(argv[1], &library);
- 			borrowBook("Emprunts.txt", library, &borrowings);
-			broughtBackBook("Rendus.txt", &library, &borrowings);
+			
+			if (library != NULL) {
+				borrowBook("Emprunts.txt", library, &borrowings);
+				broughtBackBook("Rendus.txt", &library, &borrowings);
+
+			}
 
 			// menu
 
