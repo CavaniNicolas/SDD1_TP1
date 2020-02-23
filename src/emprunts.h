@@ -1,25 +1,93 @@
 #ifndef empruntsH
 #define empruntsH
 
+/* --------------------------------------------------------------------------------- */
+/* displayBorrowings      Affiche la liste des emprunts                              */
+/*                                                                                   */
+/* En entrée:  borrowings : pointeur constant sur la liste emprunts (par valeur)     */
+/*                                                                                   */
+/* En sortie:  void                                                                  */
+/* --------------------------------------------------------------------------------- */
 void displayBorrowings(borrowings_t const *);
 
-// Lit le fichier des emprunts et rempli la liste chainée
+
+/* -------------------------------------------------------------------- */
+/* borrowBook  Lit le fichier des emprunts et rempli la liste chainée   */
+/*                                                                      */
+/* En entrée:  filename : chaine de caractères, nom du fichier          */
+/*             library : pointeur sur la bibliothèque (par valeur)      */
+/*             borrowings : pointeur la liste emprunts (par adresse)    */
+/*                                                                      */
+/* En sortie:  void                                                     */
+/* -------------------------------------------------------------------- */
 void borrowBook(char *, library_t *, borrowings_t **);
 
-// Chercher dans la liste category si le livre emprunté existe
-// Renvoie l'adresse du livre si il a ete a ete trouve, NULL sinon
+
+/* ----------------------------------------------------------------------- */
+/* isBookInLibrary  Cherche dans la bibliothèque si le livre               */
+/*                  que l'on veut emprunter existe                         */
+/*                                                                         */
+/* En entrée:  curLib : pointeur courant sur la bibliothèque (par valeur)  */
+/*             category : categorie du livre recherché                     */
+/*             bookNb : numéro du livre recherché                          */
+/*                                                                         */
+/* En sortie:  pointeur contenant l'adresse du livre de la bibliothèque    */
+/*             que l'on souhaite emprunter, NULL si il n'est pas trouvé    */
+/* ----------------------------------------------------------------------- */
 books_t * isBookInLibrary(library_t *, char[4], int);
 
-// Insere le livre emprunté dans la liste emprunts
-// et modifie la valeur de isBorrowed dans la liste library
+
+/* ------------------------------------------------------------------------ */
+/* insertBorrowing    Insere le livre emprunté dans la liste emprunts et    */
+/*                    modifie la valeur de isBorrowed dans la bibliothèque  */
+/*                                                                          */
+/* En entrée:  borrowings : pointeur sur la liste emprunts (par adresse)    */
+/*             bookBorrowed : adresse du livre de la bibliothèque que l'on  */
+/*                            souhaite emprunter                            */
+/*             date : chaine de caractère, date retour du livre             */
+/*                                                                          */
+/* En sortie:  void                                                         */
+/* ------------------------------------------------------------------------ */
 void insertBorrowing(borrowings_t **, books_t * curBooks, char[9]);
+
 
 
 // Lit le fichier des livres rapportés et les supprime de la liste emprunts
 // et modifie la valeur de isBorrowed dans la liste library
+
+/* -------------------------------------------------------------------- */
+/* broughtBackBook                                                      */
+/*                                                                      */
+/* En entrée:                                                           */
+/*                                                                      */
+/*                                                                      */
+/*                                                                      */
+/* En sortie:  void                                                     */
+/* -------------------------------------------------------------------- */
 void broughtBackBook(char *, library_t **, borrowings_t **);
 
+
+/* -------------------------------------------------------------------- */
+/* deleteBorrowing                                                      */
+/*                                                                      */
+/* En entrée:                                                           */
+/*                                                                      */
+/*                                                                      */
+/*                                                                      */
+/* En sortie:  void                                                     */
+/* -------------------------------------------------------------------- */
 void deleteBorrowing(borrowings_t ** , int );
+
+
+/* -------------------------------------------------------------------- */
+/* isBorrowedToFalse                                                    */
+/*                                                                      */
+/* En entrée:                                                           */
+/*                                                                      */
+/*                                                                      */
+/*                                                                      */
+/* En sortie:  void                                                     */
+/* -------------------------------------------------------------------- */
 void isBorrowedToFalse(library_t **, char[4], int);
 
 
