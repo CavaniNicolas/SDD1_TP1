@@ -44,7 +44,6 @@ int menu(library_t ** library, borrowings_t ** borrowings) {
 				break;
 			case 4:
 				printf("4\n");
-				printf("%d\n", 'm');
 				break;
 			case 5:
 				printf("5\n");

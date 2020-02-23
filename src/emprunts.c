@@ -106,7 +106,7 @@ void broughtBackBook(char * filename, library_t ** library, borrowings_t ** borr
 	if (*library != NULL) {
 		if (file != NULL) {
 			char category[4];
-			int bookNb = 0;
+			int  bookNb = 0;
 
 			while (!feof(file)) {
 				fscanf(file, "%s %d", category, &bookNb);

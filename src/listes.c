@@ -15,9 +15,9 @@ void createLibrary(char * filename, library_t ** library) {
 
 	if (file != NULL){
 		char categoryName[4];
-		int categorySize = 0;
-		int i = 0;
-		int bookNb = 0;
+		int  categorySize = 0;
+		int  i = 0;
+		int  bookNb = 0;
 		char title[11];
 
 		library_t * elemLib;
@@ -71,18 +71,19 @@ void createLibrary(char * filename, library_t ** library) {
 		}
 			
 		fclose(file);
-	}
-	else {
+	} else {
 		printf("Nom de fichier inexistant\n");
 	}
 }
 
 void remove_endstr_r_windows(char * line){
 	int i = 0;
+
 	while (line[i]!='\0') {
 		i++;
 	}
 	i--;
+
 	if (line[i] == '\r') {
 		line[i] = '\0';
 	}
@@ -90,7 +91,8 @@ void remove_endstr_r_windows(char * line){
 
 void displayLibrary(library_t * library) {
 	library_t * curLib = library;
-	books_t * curBooks = NULL;
+	books_t   * curBooks = NULL;
+
 	printf("\n   On affiche la bibliothèque :\n");
 
 	if (curLib != NULL) {
@@ -109,8 +111,8 @@ void displayLibrary(library_t * library) {
 }
 
 void freeAllLists(library_t ** library, borrowings_t ** borrowings) {
-	library_t * curLib = *library;
-	books_t * curBooks = NULL;
+	library_t    * curLib = *library;
+	books_t      * curBooks = NULL;
 	borrowings_t * curBorrow = *borrowings;
 
 	while (*library != NULL) {
