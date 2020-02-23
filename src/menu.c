@@ -8,10 +8,11 @@
 #include "listes.h"
 
 int menu(library_t ** library, borrowings_t ** borrowings) {
-	int choice = -1;
+	int  choice = -1;
 	char filename[255];
+	int  argNb = 0;
 
-	printf( \
+	printf("\n\n" \
 "                      MENU\n" \
 "|           Afficher la bibliothèque            : 1|\n" \
 "|        Afficher la liste des emprunts         : 2|\n" \
@@ -20,32 +21,42 @@ int menu(library_t ** library, borrowings_t ** borrowings) {
 "|    Sauvegarder les emprunts dans un fichier   : 5|\n" \
 "|                    Quitter                    : 0|\n" \
 "			: ");
-	scanf("%d", &choice);
+	
+	argNb = scanf("%n%d", &argNb, &choice);
+	// On vide le buffer dans le cas où autre chose qu'un int a été entré
+	while (getchar () != '\n');
 
-	switch (choice){
-		case 0:
-			printf("On quitte\n");
-			break;
-		case 1:
-			displayLibrary(*library);
-			break;
-		case 2:
-			displayBorrowings(*borrowings);
-			break;
-		case 3:
-			scanf("%s", filename);
-			broughtBackBook(filename, library, borrowings);
-			break;
-		case 4:
-			printf("5\n");
-			break;
-		case 5:
-			printf("6\n");
-			break;
-		default:
-			printf("Selectionner une option\n");
-			break;
+	if (argNb == 1) {
 
+		switch (choice){
+			case 0:
+				printf("\n   On quitte\n");
+				break;
+			case 1:
+				displayLibrary(*library);
+				break;
+			case 2:
+				displayBorrowings(*borrowings);
+				break;
+			case 3:
+				scanf("%s", filename);
+				broughtBackBook(filename, library, borrowings);
+				break;
+			case 4:
+				printf("4\n");
+				printf("%d\n", 'm');
+				break;
+			case 5:
+				printf("5\n");
+				break;
+			default:
+				printf("Selectionner une option\n");
+				break;
+		}
+
+	} else {
+		printf("\nChoix Invalide\n");
 	}
+
 	return choice;
 }

@@ -8,11 +8,15 @@
 // Affiche la liste des emprunts
 void displayBorrowings(borrowings_t const * borrowings) {
 	borrowings_t const * curBorrow = borrowings;
-	printf("\non affiche la liste des emprunts\n");
-
-	while (curBorrow != NULL) {
-		printf("bookNb:%d  returnDate:%s\n", curBorrow->bookNb, curBorrow->returnDate);
-		curBorrow = curBorrow->next;
+	printf("\n   On affiche la liste des emprunts\n");
+	
+	if (curBorrow != NULL) {
+		while (curBorrow != NULL) {
+			printf("\tbookNb: %d  returnDate: %s\n", curBorrow->bookNb, curBorrow->returnDate);
+			curBorrow = curBorrow->next;
+		}
+	} else {
+		printf("Liste emprunts vide\n");
 	}
 
 }
@@ -26,7 +30,7 @@ void borrowBook(char * filename, library_t * library, borrowings_t ** borrowings
 
 	if (library != NULL) {
 		if (file != NULL) {
-			printf("on lit le fichier emprunts\n");
+			printf("On lit le fichier emprunts\n");
 			char category[4];
 			int bookNb = 0;
 			char date[9];

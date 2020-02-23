@@ -4,6 +4,7 @@
 #include "commun.h"
 #include "emprunts.h"
 #include "listes.h"
+#include "menu.h"
 
 
 int main(int argc, char ** argv) {
@@ -16,10 +17,8 @@ int main(int argc, char ** argv) {
 
 		int isStarted = 0;
 
-		printf("Créer la liste Bibliothèque et actualiser les livres empruntés ?\n\t1: Oui\n\t0: Non\n\t\t- ");
+		printf("\nCréer la liste Bibliothèque et actualiser les livres empruntés ?\n\t1: Oui\n\t0: Non\n\t\t- ");
 		scanf("%d",&isStarted);
-
-		//while (menu(&library, &borrowings)) {}
 
 		if (isStarted == 1) {
 			createLibrary(argv[1], &library);
@@ -30,10 +29,13 @@ int main(int argc, char ** argv) {
 
 			}
 
-			// menu
+			int inMenu = 1;
+			while (inMenu != 0) {
+				inMenu = menu(&library, &borrowings);
+			}
 
-			displayBorrowings(borrowings);
-			displayLibrary(library);
+			// displayBorrowings(borrowings);
+			// displayLibrary(library);
 
 			freeAllLists(&library, &borrowings);
 

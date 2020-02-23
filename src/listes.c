@@ -91,16 +91,20 @@ void remove_endstr_r_windows(char * line){
 void displayLibrary(library_t * library) {
 	library_t * curLib = library;
 	books_t * curBooks = NULL;
-	printf("\nOn affiche la bibliothèque :\n");
+	printf("\n   On affiche la bibliothèque :\n");
 
-	while (curLib != NULL) {
-		printf("%s\n", curLib->category);
-		curBooks = curLib->begBooks;
-		while (curBooks != NULL) {
-			printf("%d %s %d\n", curBooks->bookNb, curBooks->title, curBooks->isBorrowed);
-			curBooks = curBooks->next;
+	if (curLib != NULL) {
+		while (curLib != NULL) {
+			printf("\t%s\n", curLib->category);
+			curBooks = curLib->begBooks;
+			while (curBooks != NULL) {
+				printf("\t   %d %s %d\n", curBooks->bookNb, curBooks->title, curBooks->isBorrowed);
+				curBooks = curBooks->next;
+			}
+			curLib = curLib->next;
 		}
-		curLib = curLib->next;
+	} else {
+		printf("Liste bibliothèque vide\n");
 	}
 }
 
