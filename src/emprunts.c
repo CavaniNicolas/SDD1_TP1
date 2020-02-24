@@ -8,7 +8,7 @@
 // Affiche la liste des emprunts
 void displayBorrowings(borrowings_t const * borrowings) {
 	borrowings_t const * curBorrow = borrowings;
-	printf("\n   On affiche la liste des emprunts\n");
+	printf("\n\033[32m   On affiche la liste des emprunts :\033[00m\n");
 	
 	if (curBorrow != NULL) {
 		while (curBorrow != NULL) {

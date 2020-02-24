@@ -14,16 +14,16 @@ int menu(library_t ** library, borrowings_t ** borrowings) {
 	int  typeFilename = 1;
 
 	printf("\033[33m\n\n" \
-"----------------------------------------------------\n" \
-"|\033[35m                     MENU                         \033[33m|\n" \
-"|\033[36m           Afficher la bibliothèque            : 1\033[33m|\n" \
-"|\033[36m        Afficher la liste des emprunts         : 2\033[33m|\n" \
-"|\033[36m         Lire le fichier des retours           : 3\033[33m|\n" \
-"|\033[36m   Afficher les emprunts a rendre avant le...  : 4\033[33m|\n" \
-"|\033[36m    Sauvegarder les emprunts dans un fichier   : 5\033[33m|\n" \
-"|\033[36m                    Quitter                    : 0\033[33m|\n" \
-"----------------------------------------------------\n\033[00m" \
-"		-: ");
+" -----------------------------------------------------\n" \
+" |\033[35m                     MENU                          \033[33m|\n" \
+" |\033[36m           Afficher la bibliothèque            : 1 \033[33m|\n" \
+" |\033[36m        Afficher la liste des emprunts         : 2 \033[33m|\n" \
+" |\033[36m         Lire le fichier des retours           : 3 \033[33m|\n" \
+" |\033[36m   Afficher les emprunts a rendre avant le...  : 4 \033[33m|\n" \
+" |\033[36m    Sauvegarder les emprunts dans un fichier   : 5 \033[33m|\n" \
+" |\033[36m                    Quitter                    : 0 \033[33m|\n" \
+" -----------------------------------------------------\n\033[00m" \
+"         -: ");
 	
 	argNb = scanf("%n%d", &argNb, &choice);
 	// On vide le buffer dans le cas où autre chose qu'un int a été entré
@@ -46,21 +46,27 @@ int menu(library_t ** library, borrowings_t ** borrowings) {
 				break;
 
 			case 3:
-				printf("\n   Nom du fichier des rendus :\n" \
-					     "      \"Rendus.txt\"         : 1\n" \
-					     "      Autre nom à entrer   : 0\n" \
+				printf("\n" \
+				         "\033[32m   |\033[36m Nom du fichier des rendus : \033[32m|\n" \
+					     "\033[32m   |\033[36m    \"Rendus.txt\"         : 1 \033[32m|\n" \
+					     "\033[32m   |\033[36m    Autre nom à entrer   : 0 \033[32m|\033[00m\n" \
 					     "         -: ");
 				scanf("%d",&typeFilename);
 
 				if (typeFilename == 0) {
-					printf("\n   Entrer le nom du fichier des retours\n" \
+					printf("\n\033[32m   |\033[36m Entrer le nom du fichier des retours : \033[32m|\033[00m\n" \
 						     "         -: ");
 					scanf("%s", filename);
-				} else if (typeFilename == 1){
+					broughtBackBook(filename, library, borrowings);
+
+				} else if (typeFilename == 1) {
 					strcpy(filename, "Rendus.txt");
+					broughtBackBook(filename, library, borrowings);
+				
+				} else {
+					printf("\n\033[31m   Choix Invalide\033[00m\n");
 				}
 
-				broughtBackBook(filename, library, borrowings);
 				break;
 
 			case 4:

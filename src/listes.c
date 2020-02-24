@@ -93,7 +93,7 @@ void displayLibrary(library_t * library) {
 	library_t * curLib = library;
 	books_t   * curBooks = NULL;
 
-	printf("\n   On affiche la bibliothèque :\n");
+	printf("\n\033[32m   On affiche la bibliothèque :\033[00m\n");
 
 	if (curLib != NULL) {
 		while (curLib != NULL) {
