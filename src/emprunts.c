@@ -16,7 +16,7 @@ void displayBorrowings(borrowings_t const * borrowings) {
 			curBorrow = curBorrow->next;
 		}
 	} else {
-		printf("Liste emprunts vide\n");
+		printf("\n\033[31m   Liste emprunts vide\033[00m\n");
 	}
 
 }
@@ -30,7 +30,7 @@ void borrowBook(char * filename, library_t * library, borrowings_t ** borrowings
 
 	if (library != NULL) {
 		if (file != NULL) {
-			printf("On lit le fichier emprunts\n");
+			printf("\n   On lit le fichier emprunts\n");
 			char category[4];
 			int bookNb = 0;
 			char date[9];
@@ -42,10 +42,10 @@ void borrowBook(char * filename, library_t * library, borrowings_t ** borrowings
 			}
 			fclose(file);
 		} else {
-			printf("Nom de fichier pour les emprunts inexistant\n");
+			printf("\n\033[31m   Nom de fichier pour les emprunts inexistant\033[00m\n");
 		}
 	} else {
-		printf("Liste bibliotheque vide\n");
+		printf("\n\033[31m   Liste bibliotheque vide\033[00m\n");
 	}
 }
 
@@ -94,7 +94,7 @@ void insertBorrowing(borrowings_t ** borrowings, books_t * bookBorrowed, char da
 			}
 		}
 	} else {
-		printf("Livre de la liste à emprunter inexistant");
+		printf("\n\033[31m   Livre de la liste à emprunter inexistant\033[00m");
 	}
 }
 
@@ -114,10 +114,10 @@ void broughtBackBook(char * filename, library_t ** library, borrowings_t ** borr
 				isBorrowedToFalse(library, category, bookNb);
 			}
 		} else {
-			printf("Nom de fichier pour les retours inexistant\n");
+			printf("\n\033[31m   Nom de fichier pour les retours inexistant\033[00m\n");
 		}
 	} else {
-		printf("Liste bibliotheque vide\n");
+		printf("\n\033[31m   Liste bibliotheque vide\033[00m\n");
 	}
 }
 

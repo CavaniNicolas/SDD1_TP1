@@ -17,7 +17,7 @@ int main(int argc, char ** argv) {
 
 		int isStarted = 0;
 
-		printf("\nCréer la liste Bibliothèque et actualiser les livres empruntés ?\n\t1: Oui\n\t0: Non\n\t\t- ");
+		printf("\n\033[36mCréer la liste Bibliothèque et actualiser les livres empruntés ?\n\t\033[32mOui  :1\n\t\033[31mNon  :0\033[00m\n\t\t-: ");
 		scanf("%d",&isStarted);
 
 		if (isStarted == 1) {
@@ -40,7 +40,7 @@ int main(int argc, char ** argv) {
 			freeAllLists(&library, &borrowings);
 
 		} else {
-			printf("Quitter\n");
+			printf("\033[31m   Quitter\n\n\033[00m");
 		}
 	}
 	return 0;

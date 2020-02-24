@@ -72,7 +72,7 @@ void createLibrary(char * filename, library_t ** library) {
 			
 		fclose(file);
 	} else {
-		printf("Nom de fichier inexistant\n");
+		printf("\n\033[31m   Nom de fichier inexistant\033[00m\n");
 	}
 }
 
@@ -106,7 +106,7 @@ void displayLibrary(library_t * library) {
 			curLib = curLib->next;
 		}
 	} else {
-		printf("Liste bibliothèque vide\n");
+		printf("\n\033[31m   Liste bibliothèque vide\033[00m\n");
 	}
 }
 
