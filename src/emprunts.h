@@ -14,8 +14,8 @@ void displayBorrowings(borrowings_t const *);
 /* -------------------------------------------------------------------- */
 /* borrowBook  Lit le fichier des emprunts et rempli la liste chainée   */
 /*                                                                      */
-/* En entrée:  filename : chaine de caractères, nom du fichier          */
-/*             library : pointeur sur la bibliothèque (par valeur)      */
+/* En entrée:  filename   : chaine de caractères, nom du fichier        */
+/*             library    : pointeur sur la bibliothèque (par valeur)   */
 /*             borrowings : pointeur la liste emprunts (par adresse)    */
 /*                                                                      */
 /* En sortie:  void                                                     */
@@ -27,9 +27,9 @@ void borrowBook(char *, library_t *, borrowings_t **);
 /* isBookInLibrary  Cherche dans la bibliothèque si le livre               */
 /*                  que l'on veut emprunter existe                         */
 /*                                                                         */
-/* En entrée:  curLib : pointeur courant sur la bibliothèque (par valeur)  */
+/* En entrée:  curLib   : pointeur courant sur la bibliothèque (par valeur)*/
 /*             category : categorie du livre recherché                     */
-/*             bookNb : numéro du livre recherché                          */
+/*             bookNb   : numéro du livre recherché                        */
 /*                                                                         */
 /* En sortie:  pointeur contenant l'adresse du livre de la bibliothèque    */
 /*             que l'on souhaite emprunter, NULL si il n'est pas trouvé    */
@@ -41,10 +41,10 @@ books_t * isBookInLibrary(library_t *, char[4], int);
 /* insertBorrowing    Insere le livre emprunté dans la liste emprunts et    */
 /*                    modifie la valeur de isBorrowed dans la bibliothèque  */
 /*                                                                          */
-/* En entrée:  borrowings : pointeur sur la liste emprunts (par adresse)    */
+/* En entrée:  borrowings   : pointeur sur la liste emprunts (par adresse)  */
 /*             bookBorrowed : adresse du livre de la bibliothèque que l'on  */
 /*                            souhaite emprunter                            */
-/*             date : chaine de caractère, date retour du livre             */
+/*             date         : chaine de caractère, date retour du livre     */
 /*                                                                          */
 /* En sortie:  void                                                         */
 /* ------------------------------------------------------------------------ */
