@@ -97,15 +97,10 @@ int createLibrary(char * filename, library_t ** library) {
 			if (elemLib != NULL) {
 				fscanf(file, "%s %d", category, &categorySize);
 				strcpy(elemLib->category, category);
-				elemLib->next = NULL;
+				elemLib->next = *library;
+				*library = elemLib;
 
-				if (*library == NULL) {
-					*library = elemLib;
-				} else {
-					curLib->next = elemLib;
-				}
-				curLib = elemLib;
-				fillBooksInLibrary(file, curLib, categorySize);
+				fillBooksInLibrary(file, elemLib, categorySize);
 
 			} else {
 				error = 0;
