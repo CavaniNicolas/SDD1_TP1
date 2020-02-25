@@ -113,6 +113,8 @@ void broughtBackBook(char * filename, library_t ** library, borrowings_t ** borr
 				deleteBorrowing(borrowings, bookNb);
 				isBorrowedToFalse(library, category, bookNb);
 			}
+
+			fclose(file);
 		} else {
 			printf("\n\033[31m   Nom de fichier pour les retours inexistant\033[00m\n");
 		}

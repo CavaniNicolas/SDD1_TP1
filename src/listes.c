@@ -9,7 +9,7 @@
 // dans un scanf : %n permet de recuperer le nombre de caractere lu par le scanf
 // scanf return le nombre d'arguments quelle a rempli (largumetn %n nest pas pris en compte)
 
-void createLibrary(char * filename, library_t ** library) {
+/*void createLibrary_OLD(char * filename, library_t ** library) {
 	FILE * file = NULL;
 	file = fopen(filename,"r");
 
@@ -74,7 +74,85 @@ void createLibrary(char * filename, library_t ** library) {
 	} else {
 		printf("\n\033[31m   Nom de fichier inexistant\033[00m\n");
 	}
+}*/
+
+
+int createLibrary(char * filename, library_t ** library) {
+	int error = 1;
+
+	FILE * file = NULL;
+	file = fopen(filename, "r");
+
+	if (file != NULL) {
+		char category[4];
+		int  categorySize = 0;
+
+		library_t * curLib  = *library;
+		library_t * elemLib = NULL;
+
+		while (!feof(file)) {
+
+			elemLib = (library_t *)malloc(sizeof(library_t));
+
+			if (elemLib != NULL) {
+				fscanf(file, "%s %d", category, &categorySize);
+				strcpy(elemLib->category, category);
+				elemLib->next = NULL;
+
+				if (*library == NULL) {
+					*library = elemLib;
+				} else {
+					curLib->next = elemLib;
+				}
+				curLib = elemLib;
+				fillBooksInLibrary(file, curLib, categorySize);
+
+			} else {
+				error = 0;
+			}
+		}
+
+		fclose(file);
+	} else {
+		error = 0;
+	}
+	return error;
 }
+
+int fillBooksInLibrary(FILE * file, library_t * curLib, int categorySize) {
+	int  error = 1;
+	int  i = 0;
+	int  bookNb = 0;
+	char title[11];
+	books_t * elemBooks = NULL;
+	books_t * curBooks = curLib->begBooks;
+
+	for (i=0; i<categorySize; i++) {
+		elemBooks = (books_t *)malloc(sizeof(books_t));
+
+		if (elemBooks != NULL) {
+			fscanf(file, "%d %[^\n]", &bookNb, title);
+			remove_endstr_r_windows(title);
+			elemBooks->bookNb = bookNb;
+			strcpy(elemBooks->title, title);
+			elemBooks->isBorrowed = false;
+			elemBooks->next = NULL;
+
+			if (curLib->begBooks == NULL) {
+				curLib->begBooks = elemBooks;
+				curBooks = elemBooks;
+			} else {
+				curBooks->next = elemBooks;
+			}
+			curBooks = elemBooks;
+
+		} else {
+			error = 0;
+		}
+	}
+	return error;
+}
+
 
 void remove_endstr_r_windows(char * line){
 	int i = 0;

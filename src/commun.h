@@ -15,7 +15,6 @@ typedef struct books{ // Triée selon numero bookNb croissant
 typedef struct library{ // Liste non triée
 	char category[4];
 	struct books * begBooks;
-	struct books * endBooks;
 	struct library * next;
 }library_t;
 
