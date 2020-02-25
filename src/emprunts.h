@@ -95,7 +95,7 @@ void isBorrowedToFalse(library_t **, char[4], int);
 
 /* ---------------------------------------------------------------------- */
 /* displayBorrowingsBeforeDate  Affiche le numéro et dateRetour des       */
-/*                              livres à rendre avant date (en paramètre) */                                     */
+/*                              livres à rendre avant date (en paramètre) */
 /*                                                                        */
 /* En entrée:  borrowings : pointeur sur la liste emprunts (par valeur)   */
 /*             date       : chaine de caractère                           */
@@ -105,6 +105,11 @@ void isBorrowedToFalse(library_t **, char[4], int);
 /* ---------------------------------------------------------------------- */
 void displayBorrowingsBeforeDate(borrowings_t *, char date[9]);
 
+
+
+
+void saveBorrowingsInFile(char * filename, library_t * library, borrowings_t * curBorrow);
+void findCategoryName(library_t * curLib, int bookNb, char category[4]);
 
 
 /*

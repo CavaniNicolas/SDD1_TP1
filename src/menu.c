@@ -88,7 +88,7 @@ int menu(library_t ** library, borrowings_t ** borrowings) {
 				break;
 
 			case 5:
-				printf("\n   5\n");
+				saveBorrowingsInFile("emprunts/yoloAsupprimer.txt", *library, *borrowings);
 				break;
 
 			default:
@@ -121,6 +121,8 @@ int isDateInputCorrect(char date[9]) {
 	}
 	return error;
 }
+
+
 
 void emptyBuffer() {
 	while (getchar () != '\n');

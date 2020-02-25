@@ -87,7 +87,6 @@ int createLibrary(char * filename, library_t ** library) {
 		char category[4];
 		int  categorySize = 0;
 
-		library_t * curLib  = *library;
 		library_t * elemLib = NULL;
 
 		while (!feof(file)) {
@@ -97,6 +96,7 @@ int createLibrary(char * filename, library_t ** library) {
 			if (elemLib != NULL) {
 				fscanf(file, "%s %d", category, &categorySize);
 				strcpy(elemLib->category, category);
+				elemLib->begBooks = NULL;
 				elemLib->next = *library;
 				*library = elemLib;
 

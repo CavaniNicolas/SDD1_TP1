@@ -181,3 +181,39 @@ void displayBorrowingsBeforeDate(borrowings_t * curBorrow, char date[9]) {
 		printf("   Aucun livre à rendre avant cette date\n");
 	}
 }
+
+
+
+void saveBorrowingsInFile(char * filename, library_t * library, borrowings_t * curBorrow) {
+	FILE * file = NULL;
+	file = fopen(filename, "w");
+	char category[4];
+
+	printf("\n   fichier créé : \033[35m%s\033[00m\n", filename);
+
+	while (curBorrow != NULL) {
+		findCategoryName(library, curBorrow->bookNb, category);
+		fprintf(stdout, "      %s %d %s\n", category, curBorrow->bookNb, curBorrow->returnDate);
+		fprintf(file, "%s %d %s\n", category, curBorrow->bookNb, curBorrow->returnDate);
+		curBorrow = curBorrow->next;
+	}
+
+	fclose(file);
+}
+
+void findCategoryName(library_t * curLib, int bookNb, char category[4]) {
+	int isfound = 0;
+	books_t * curBooks = NULL;
+
+	while (curLib != NULL && isfound == 0) {
+		strcpy(category, curLib->category);
+		curBooks = curLib->begBooks;
+		while (curBooks != NULL && curBooks->bookNb != bookNb) {
+			curBooks = curBooks->next;
+		}
+		if (curBooks != NULL) {
+			isfound = 1;
+		}
+		curLib = curLib->next;
+	}
+}
