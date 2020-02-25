@@ -12,7 +12,7 @@ void displayBorrowings(borrowings_t const * borrowings) {
 	
 	if (curBorrow != NULL) {
 		while (curBorrow != NULL) {
-			printf("\tbookNb: %d  returnDate: %s\n", curBorrow->bookNb, curBorrow->returnDate);
+			printf("\tbookNb: \033[35m%d\033[00m  returnDate: \033[35m%s\033[00m\n", curBorrow->bookNb, curBorrow->returnDate);
 			curBorrow = curBorrow->next;
 		}
 	} else {
@@ -166,4 +166,18 @@ void deleteBorrowing(borrowings_t ** borrowings, int bookNb) {
 	}
 
 	free(curBorrow);
+}
+
+
+void displayBorrowingsBeforeDate(borrowings_t * curBorrow, char date[9]) {
+	int i = 0;
+	printf("\n");
+	while (curBorrow != NULL && atoi(curBorrow->returnDate) < atoi(date)) {
+		printf("   Livre numero : \033[35m%d\033[00m à rendre avant le \033[35m%s\033[00m\n", curBorrow->bookNb, curBorrow->returnDate);
+		curBorrow = curBorrow->next;
+		i++;
+	}
+	if (i == 0) {
+		printf("   Aucun livre à rendre avant cette date\n");
+	}
 }

@@ -92,6 +92,21 @@ void isBorrowedToFalse(library_t **, char[4], int);
 
 
 
+
+/* ---------------------------------------------------------------------- */
+/* displayBorrowingsBeforeDate  Affiche le numéro et dateRetour des       */
+/*                              livres à rendre avant date (en paramètre) */                                     */
+/*                                                                        */
+/* En entrée:  borrowings : pointeur sur la liste emprunts (par valeur)   */
+/*             date       : chaine de caractère                           */
+/*                                                                        */
+/*                                                                        */
+/* En sortie:  void                                                       */
+/* ---------------------------------------------------------------------- */
+void displayBorrowingsBeforeDate(borrowings_t *, char date[9]);
+
+
+
 /*
 interface : 
     lexecutable se lance,

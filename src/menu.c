@@ -79,7 +79,7 @@ int menu(library_t ** library, borrowings_t ** borrowings) {
 				scanf("%s", date);
 				emptyBuffer();
 				if (isDateInputCorrect(date)) {
-					//fct affichage des livres correspondants à écrire
+					displayBorrowingsBeforeDate(*borrowings, date);
 
 				} else {
 					printf("\n\033[31m   Date Invalide\033[00m\n");
@@ -104,8 +104,7 @@ int menu(library_t ** library, borrowings_t ** borrowings) {
 	return choice;
 }
 
-// petit probleme à la ligne précedent l'appel à cette fct :
-// ne detecte pas si la chaine fait plus de 8 caractères, (renvoie 1 quand meme)
+
 int isDateInputCorrect(char date[9]) {
 	int error = 1;
 	int i = 0;
