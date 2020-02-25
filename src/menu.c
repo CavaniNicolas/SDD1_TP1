@@ -11,7 +11,10 @@ int menu(library_t ** library, borrowings_t ** borrowings) {
 	int  choice = -1;
 	char filename[255];
 	int  argNb = 0;
+
 	int  typeFilename = 1;
+
+	char date[9];
 
 	printf("\033[33m\n\n" \
 " -----------------------------------------------------\n" \
@@ -27,7 +30,7 @@ int menu(library_t ** library, borrowings_t ** borrowings) {
 	
 	argNb = scanf("%n%d", &argNb, &choice);
 	// On vide le buffer dans le cas où autre chose qu'un int a été entré
-	while (getchar () != '\n');
+	emptyBuffer();
 
 	if (argNb == 1) {
 
@@ -47,15 +50,15 @@ int menu(library_t ** library, borrowings_t ** borrowings) {
 
 			case 3:
 				printf("\n" \
-				         "\033[32m   |\033[36m Nom du fichier des rendus : \033[32m|\n" \
-					     "\033[32m   |\033[36m    \"Rendus.txt\"         : 1 \033[32m|\n" \
-					     "\033[32m   |\033[36m    Autre nom à entrer   : 0 \033[32m|\033[00m\n" \
-					     "         -: ");
+				        "\033[32m   |\033[36m Nom du fichier des rendus : \033[32m|\n" \
+					            "   |\033[36m    \"Rendus.txt\"         : 1 \033[32m|\n" \
+					            "   |\033[36m    Autre nom à entrer   : 0 \033[32m|\033[00m\n" \
+					    "         -: ");
 				scanf("%d",&typeFilename);
 
 				if (typeFilename == 0) {
 					printf("\n\033[32m   |\033[36m Entrer le nom du fichier des retours : \033[32m|\033[00m\n" \
-						     "         -: ");
+						    "         -: ");
 					scanf("%s", filename);
 					broughtBackBook(filename, library, borrowings);
 
@@ -70,7 +73,18 @@ int menu(library_t ** library, borrowings_t ** borrowings) {
 				break;
 
 			case 4:
-				printf("\n   4\n");
+				printf("\n" \
+					    "\033[32m   |\033[36m Selectionner une date AAAAMMJJ : \033[32m|\n" \
+					    "\033[00m         -: ");
+				scanf("%s", date);
+				emptyBuffer();
+				if (isDateInputCorrect(date)) {
+					//fct affichage des livres correspondants à écrire
+
+				} else {
+					printf("\n\033[31m   Date Invalide\033[00m\n");
+				}
+
 				break;
 
 			case 5:
@@ -88,4 +102,27 @@ int menu(library_t ** library, borrowings_t ** borrowings) {
 	}
 
 	return choice;
+}
+
+// petit probleme à la ligne précedent l'appel à cette fct :
+// ne detecte pas si la chaine fait plus de 8 caractères, (renvoie 1 quand meme)
+int isDateInputCorrect(char date[9]) {
+	int error = 1;
+	int i = 0;
+
+	while (date[i] != '\0' && error == 1) {
+		if (date[i] < 48 || date[i] > 57) {
+			error = 0;
+		}
+		i++;
+	}
+	if (i != 8) {
+		date[8] = '\0';
+		error = 0;
+	}
+	return error;
+}
+
+void emptyBuffer() {
+	while (getchar () != '\n');
 }
