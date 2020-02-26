@@ -89,7 +89,7 @@ void deleteBorrowing(borrowings_t ** , int);
 /*                                                                       */
 /* En sortie:  void                                                      */
 /* --------------------------------------------------------------------- */
-void isBorrowedToFalse(library_t const *, char[4], int);
+void isBorrowedToFalse(library_t *, char[4], int);
 
 
 
