@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <dirent.h>
 #include "commun.h"
 #include "menu.h"
 #include "emprunts.h"
@@ -62,10 +63,12 @@ int menu(library_t ** library, borrowings_t ** borrowings) {
 					printf("\n\033[32m   |\033[36m Entrer le nom du fichier des retours : \033[32m|\033[00m\n" \
 						    "         -: ");
 					scanf("%s", filename);
+					printf("   Actualisation des livres empruntés depuis le fichier des retours : \033[32m%s\033[00m\n", filename);
 					broughtBackBook(filename, *library, borrowings);
 
 				} else if (typeFilename == 1) {
 					strcpy(filename, "Rendus.txt");
+					printf("   Actualisation des livres empruntés depuis le fichier des retours : \033[32m%s\033[00m\n", filename);
 					broughtBackBook(filename, *library, borrowings);
 				
 				} else {
@@ -138,7 +141,47 @@ void createFilename(char * filename) {
 	month = local->tm_mon + 1;
 	year = local->tm_year + 1900;
 
-	snprintf(filename, 37, "emprunts/%d-%02d-%02d_%02dh%02d'%02d''", year, month, day, h, min, s);
+	snprintf(filename, 40, "emprunts/%d-%02d-%02d_%02dh%02d'%02d''", year, month, day, h, min, s);
+}
+
+
+void findFilenameMax(char filenameMax[22]) {
+	DIR * rep = opendir("./emprunts");
+	strcpy(filenameMax, "0000-00-00_00h00'00''");
+
+	if (rep != NULL) {
+		struct dirent * ent = NULL;
+		char            filename[22];
+		char            filenameDate[15];
+		char            filenameDateMax[15] = "00000000000000";
+		int             i = 0;
+		int             j = 0;
+
+		while ((ent = readdir(rep)) != NULL) {
+
+			if (strcmp(ent->d_name, ".") && strcmp(ent->d_name, "..")) {
+				
+				strcpy(filename, ent->d_name);
+
+				i = 0; j = 0;
+				while (filename[i] != '\0') {
+					if (filename[i] >= 48 && filename[i] <= 57) {
+						filenameDate[j] = filename[i];
+						j++;
+					}
+					i++;
+				}
+				filenameDate[14] = '\0';
+
+				if (atoi(filenameDate) > atoi(filenameDateMax)) {
+					strcpy(filenameMax, filename);
+				}
+			}
+
+		}
+
+		closedir(rep);
+	}
 }
 
 

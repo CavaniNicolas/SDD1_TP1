@@ -45,4 +45,16 @@ int isDateInputCorrect(char[9]);
 void createFilename(char *);
 
 
+/* ------------------------------------------------------------------------ */
+/* findFileName   Modifie la chaine de caractères passées en paramètre,     */
+/*                Celle ci prend le  nom du dernier fichier emprunts        */
+/*                créé, à lire lors de la prochaine excecution du programme */
+/*                                                                          */
+/* En entrée:  filenameMax : chaine de caractères                           */
+/*                                                                          */
+/* En sortie:  void                                                         */
+/* ------------------------------------------------------------------------ */
+void findFilenameMax(char [22]);
+
+
 #endif

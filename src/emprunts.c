@@ -6,23 +6,6 @@
 #include "emprunts.h"
 
 
-/*
-void findFileName() {
-	DIR * rep = opendir(".");
-
-	if (rep != NULL) {
-		struct dirent * ent;
-
-		while ((ent = readdir(rep)) != NULL) {
-			printf("%s\n", ent->d_name);
-		}
-
-		closedir(rep);
-	}
-}
-*/
-
-
 void displayBorrowings(borrowings_t const * curBorrow) {
 	printf("\n\033[32m   On affiche la liste des emprunts :\033[00m\n");
 	
