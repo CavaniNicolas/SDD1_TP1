@@ -27,6 +27,7 @@ int main(int argc, char ** argv) {
 
 		if (isStarted == 1) {
 			createLibrary(argv[1], &library);
+
 			printf("   Création de la bibliothèque depuis : \033[32m%s\033[00m\n", argv[1]);
 
 			if (library != NULL) {
@@ -40,6 +41,7 @@ int main(int argc, char ** argv) {
 
 				borrowBook(filePath, library, &borrowings);
 				broughtBackBook("text_files/brought_back.txt", library, &borrowings);
+
 				printf("   Actualisation des livres empruntés depuis : \033[32m%s\033[00m\n", filePath);
 
 				while (inMenu != 0) {

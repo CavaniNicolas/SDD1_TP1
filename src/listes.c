@@ -13,7 +13,7 @@ int createLibrary(char * filename, library_t ** library) {
 	file = fopen(filename, "r");
 
 	if (file != NULL) {
-		char category[4];
+		char category[4] = "_";
 		int  categorySize = 0;
 
 		library_t * elemLib = NULL;
@@ -24,12 +24,16 @@ int createLibrary(char * filename, library_t ** library) {
 
 			if (elemLib != NULL) {
 				fscanf(file, "%s %d", category, &categorySize);
-				strcpy(elemLib->category, category);
-				elemLib->begBooks = NULL;
-				elemLib->next = *library;
-				*library = elemLib;
+				
+				// verification importante dans le cas où le fichier ne contient qu'une ligne avec \n
+				if (category[0] != '_') {
+					strcpy(elemLib->category, category);
+					elemLib->begBooks = NULL;
+					elemLib->next = *library;
+					*library = elemLib;
 
-				fillBooksInLibrary(file, elemLib, categorySize);
+					fillBooksInLibrary(file, elemLib, categorySize);
+				}
 
 			} else {
 				error = 0;

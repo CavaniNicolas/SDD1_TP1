@@ -30,14 +30,18 @@ void borrowBook(char * filename, library_t * library, borrowings_t ** borrowings
 	if (library != NULL) {
 
 		if (file != NULL) {
-			char category[4];
+			char category[4] = "_";
 			int bookNb = 0;
 			char date[9];
 
 			while (!feof(file)) {
 				fscanf(file, "%s %d %s", category, &bookNb, date);
-				bookBorrowed = isBookInLibrary(library, category, bookNb);
-				insertBorrowing(borrowings, bookBorrowed ,date);
+
+				// verification importante dans le cas où le fichier ne contient qu'une ligne avec \n
+				if (category[0] != '_') {
+					bookBorrowed = isBookInLibrary(library, category, bookNb);
+					insertBorrowing(borrowings, bookBorrowed ,date);
+				}
 			}
 			fclose(file);
 
@@ -106,13 +110,17 @@ void broughtBackBook(char * filename, library_t * library, borrowings_t ** borro
 	if (library != NULL) {
 
 		if (file != NULL) {
-			char category[4];
+			char category[4] = "_";
 			int  bookNb = 0;
 
 			while (!feof(file)) {
 				fscanf(file, "%s %d", category, &bookNb);
-				deleteBorrowing(borrowings, bookNb);
-				isBorrowedToFalse(library, category, bookNb);
+
+				// verification importante dans le cas où le fichier ne contient qu'une ligne avec \n
+				if (category[0] != '_') {
+					deleteBorrowing(borrowings, bookNb);
+					isBorrowedToFalse(library, category, bookNb);
+				}
 			}
 
 			fclose(file);
@@ -130,22 +138,26 @@ void deleteBorrowing(borrowings_t ** borrowings, int bookNb) {
 	borrowings_t * curBorrow = *borrowings;
 	borrowings_t * prevBorrow = *borrowings;
 
-	while (curBorrow != NULL && curBorrow->bookNb != bookNb) {
-		prevBorrow = curBorrow;
-		curBorrow = curBorrow->next;
-	}
+	if (*borrowings != NULL) {
 
-	if (curBorrow != NULL) {
-		prevBorrow->next = curBorrow->next;
-	} else {
-		prevBorrow->next = NULL;
-	}
+		while (curBorrow != NULL && curBorrow->bookNb != bookNb) {
+			prevBorrow = curBorrow;
+			curBorrow = curBorrow->next;
+		}
 
-	if (curBorrow == *borrowings) {
-		*borrowings = (*borrowings)->next;
-	}
+		if (curBorrow != NULL) {
+			prevBorrow->next = curBorrow->next;
+		} else {
+			prevBorrow->next = NULL;
+		}
 
-	free(curBorrow);
+		if (curBorrow == *borrowings) {
+			*borrowings = (*borrowings)->next;
+		}
+
+		free(curBorrow);
+
+	}
 }
 
 
