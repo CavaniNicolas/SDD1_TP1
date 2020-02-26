@@ -61,11 +61,11 @@ int menu(library_t ** library, borrowings_t ** borrowings) {
 					printf("\n\033[32m   |\033[36m Entrer le nom du fichier des retours : \033[32m|\033[00m\n" \
 						    "         -: ");
 					scanf("%s", filename);
-					broughtBackBook(filename, library, borrowings);
+					broughtBackBook(filename, *library, borrowings);
 
 				} else if (typeFilename == 1) {
 					strcpy(filename, "Rendus.txt");
-					broughtBackBook(filename, library, borrowings);
+					broughtBackBook(filename, *library, borrowings);
 				
 				} else {
 					printf("\n\033[31m   Choix Invalide\033[00m\n");

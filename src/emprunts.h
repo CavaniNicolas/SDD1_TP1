@@ -16,7 +16,7 @@ void displayBorrowings(borrowings_t const *);
 /*                                                                      */
 /* En entrée:  filename   : chaine de caractères, nom du fichier        */
 /*             library    : pointeur sur la bibliothèque (par valeur)   */
-/*             borrowings : pointeur la liste emprunts (par adresse)    */
+/*             borrowings : pointeur sur la liste emprunts (par adresse)*/
 /*                                                                      */
 /* En sortie:  void                                                     */
 /* -------------------------------------------------------------------- */
@@ -52,43 +52,43 @@ void insertBorrowing(borrowings_t **, books_t * curBooks, char[9]);
 
 
 
-// Lit le fichier des livres rapportés et les supprime de la liste emprunts
-// et modifie la valeur de isBorrowed dans la liste library
-
-/* -------------------------------------------------------------------- */
-/* broughtBackBook                                                      */
-/*                                                                      */
-/* En entrée:                                                           */
-/*                                                                      */
-/*                                                                      */
-/*                                                                      */
-/* En sortie:  void                                                     */
-/* -------------------------------------------------------------------- */
-void broughtBackBook(char *, library_t **, borrowings_t **);
-
-
-/* -------------------------------------------------------------------- */
-/* deleteBorrowing                                                      */
-/*                                                                      */
-/* En entrée:                                                           */
-/*                                                                      */
-/*                                                                      */
-/*                                                                      */
-/* En sortie:  void                                                     */
-/* -------------------------------------------------------------------- */
-void deleteBorrowing(borrowings_t ** , int );
+/* ----------------------------------------------------------------------- */
+/* broughtBackBook  Lit le fichier des retours, supprime les livres        */
+/*                  rendus de la liste des emprunts et modifie la          */
+/*                  valeur de isBorrowed dans la bibliothèque              */
+/*                                                                         */
+/* En entrée:  filename   : chaine de caractère, nom du fichier des retours*/
+/*             library    : pointeur sur la bibliothèque (par valeur)      */
+/*             borrowings : pointeur sur la liste emprunts (par adresse)   */
+/*                                                                         */
+/* En sortie:  void                                                        */
+/* ----------------------------------------------------------------------- */
+void broughtBackBook(char *, library_t *, borrowings_t **);
 
 
-/* -------------------------------------------------------------------- */
-/* isBorrowedToFalse                                                    */
-/*                                                                      */
-/* En entrée:                                                           */
-/*                                                                      */
-/*                                                                      */
-/*                                                                      */
-/* En sortie:  void                                                     */
-/* -------------------------------------------------------------------- */
-void isBorrowedToFalse(library_t **, char[4], int);
+/* ---------------------------------------------------------------------- */
+/* deleteBorrowing   Supprime de la liste des emprunts le livre dont      */
+/*                   le numéro est passé en paramètre (libération mémoire)*/
+/*                                                                        */
+/* En entrée:  borrowings : pointeur sur la liste emprunts (par adresse)  */
+/*             bookNb     : entier, numéro du livre à supprimer           */
+/*                                                                        */
+/* En sortie:  void                                                       */
+/* ---------------------------------------------------------------------- */
+void deleteBorrowing(borrowings_t ** , int);
+
+
+/* --------------------------------------------------------------------- */
+/* isBorrowedToFalse   Passe la valeur de isBorrowed de la bibliothèque  */
+/*                     à False (le livre à été rendu)                    */
+/*                                                                       */
+/* En entrée:  curLib   : pointeur courant sur la liste bibliothèque     */
+/*             category : chaine de caractères, categorie du livre rendu */
+/*             bookNb   : entier, numéro du livre rendu                  */
+/*                                                                       */
+/* En sortie:  void                                                      */
+/* --------------------------------------------------------------------- */
+void isBorrowedToFalse(library_t *, char[4], int);
 
 
 
@@ -100,39 +100,36 @@ void isBorrowedToFalse(library_t **, char[4], int);
 /* En entrée:  borrowings : pointeur sur la liste emprunts (par valeur)   */
 /*             date       : chaine de caractère                           */
 /*                                                                        */
+/* En sortie:  void                                                       */
+/* ---------------------------------------------------------------------- */
+void displayBorrowingsBeforeDate(borrowings_t *, char[9]);
+
+
+/* ---------------------------------------------------------------------- */
+/* saveBorrowingsInFile   Sauvegarde les emprunts dans un fichier pouvant */
+/*                        être lu par borrowBook()                        */
+/*                                                                        */
+/* En entrée:  filename  : chaine de caractères, nom du fichier           */
+/*             library   : pointeur sur la bibliothèque (par valeur)      */
+/*             curBorrow : pointeur courant sur la liste des emprunts     */
 /*                                                                        */
 /* En sortie:  void                                                       */
 /* ---------------------------------------------------------------------- */
-void displayBorrowingsBeforeDate(borrowings_t *, char date[9]);
+void saveBorrowingsInFile(char *, library_t *, borrowings_t * curBorrow);
 
 
-
-
-void saveBorrowingsInFile(char * filename, library_t * library, borrowings_t * curBorrow);
-void findCategoryName(library_t * curLib, int bookNb, char category[4]);
-
-
-/*
-interface : 
-    lexecutable se lance,
-    lutilisateur clic, le fichier des emprunts est lu, puis le fichier des retours est lu,
-        (donc les listes sont créées et les actions effectuées dans cet ordre)
-    
-    menu :
-        lutilisateur peut:
-            - afficher les listes:
-                        la bibliotheque
-                        les emprunts
-                        la liste des livres dont la date de retour est inférieure à une date donnée
-
-            - demander de lire le ficher retour
-
-            - generer le fichier sauvegarde des emprunts (on ecrase)
-                (sauf: le nom du fichier prend la date/heure de la sauvegarde, et
-                        lors de la prochaine execution, le fichier emprunts avec la date la plus elevée est lu)
-
-            - quitter
-*/
+/* ---------------------------------------------------------------------- */
+/* findCategoryName   Remplie la chaine de caractères passée en paramètre */
+/*                    avec le nom de la categorie correspondant au numéro */
+/*                    du livre                                            */
+/*                                                                        */
+/* En entrée:  curLib   : pointeur courant sur la liste bibliothèque      */
+/*             bookNb   : entier, numéro du livre                         */
+/*             category : chaine de caractères à remplir                  */
+/*                                                                        */
+/* En sortie:  void                                                       */
+/* ---------------------------------------------------------------------- */
+void findCategoryName(library_t *, int, char[4]);
 
 
 #endif

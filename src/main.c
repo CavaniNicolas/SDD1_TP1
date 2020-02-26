@@ -25,7 +25,7 @@ int main(int argc, char ** argv) {
 			
 			if (library != NULL) {
 				borrowBook("Emprunts.txt", library, &borrowings);
-				broughtBackBook("Rendus.txt", &library, &borrowings);
+				broughtBackBook("Rendus.txt", library, &borrowings);
 
 			}
 

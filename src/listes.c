@@ -162,8 +162,7 @@ void remove_endstr_r_windows(char * line){
 	}
 }
 
-void displayLibrary(library_t * library) {
-	library_t * curLib = library;
+void displayLibrary(library_t * curLib) {
 	books_t   * curBooks = NULL;
 
 	printf("\n\033[32m   On affiche la bibliothèque :\033[00m\n");

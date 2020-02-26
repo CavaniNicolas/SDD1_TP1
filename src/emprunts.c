@@ -98,12 +98,12 @@ void insertBorrowing(borrowings_t ** borrowings, books_t * bookBorrowed, char da
 	}
 }
 
-// Fct pour supprimer un emprunt
-void broughtBackBook(char * filename, library_t ** library, borrowings_t ** borrowings) {
+
+void broughtBackBook(char * filename, library_t * library, borrowings_t ** borrowings) {
 	FILE * file = NULL;
 	file = fopen(filename, "r");
 
-	if (*library != NULL) {
+	if (library != NULL) {
 		if (file != NULL) {
 			char category[4];
 			int  bookNb = 0;
@@ -120,27 +120,6 @@ void broughtBackBook(char * filename, library_t ** library, borrowings_t ** borr
 		}
 	} else {
 		printf("\n\033[31m   Liste bibliotheque vide\033[00m\n");
-	}
-}
-
-
-void isBorrowedToFalse(library_t ** library, char category[4], int bookNb) {
-	library_t * curLib = *library;
-	books_t * curBooks = NULL;
-
-	while (curLib != NULL && strcmp(curLib->category,category)) {
-		curLib = curLib->next;
-	}
-	if (curLib != NULL) {
-		curBooks = curLib->begBooks;
-
-		while (curBooks != NULL && curBooks->bookNb != bookNb) {
-			curBooks = curBooks->next;
-		}
-	}
-
-	if (curBooks->bookNb == bookNb) {
-		curBooks->isBorrowed = false;
 	}
 }
 
@@ -166,6 +145,26 @@ void deleteBorrowing(borrowings_t ** borrowings, int bookNb) {
 	}
 
 	free(curBorrow);
+}
+
+
+void isBorrowedToFalse(library_t * curLib, char category[4], int bookNb) {
+	books_t * curBooks = NULL;
+
+	while (curLib != NULL && strcmp(curLib->category,category)) {
+		curLib = curLib->next;
+	}
+	if (curLib != NULL) {
+		curBooks = curLib->begBooks;
+
+		while (curBooks != NULL && curBooks->bookNb != bookNb) {
+			curBooks = curBooks->next;
+		}
+	}
+
+	if (curBooks->bookNb == bookNb) {
+		curBooks->isBorrowed = false;
+	}
 }
 
 

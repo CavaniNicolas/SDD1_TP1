@@ -2,10 +2,10 @@
 #define listesH
 
 /* -------------------------------------------------------------------- */
-/* createLibrary                                                        */
+/* createLibrary   Creer la bibliothèque (liste chainée library)        */
 /*                                                                      */
-/* En entrée:                                                           */
-/*                                                                      */
+/* En entrée:  filename : nom du fichier à lire pour remplir la liste   */
+/*             library  : pointeur sur la bibliothèque (par adresse)    */
 /*                                                                      */
 /*                                                                      */
 /* En sortie:  void                                                     */
@@ -17,7 +17,7 @@ int createLibrary(char *, library_t **);
 /* fillBooksInLibrary   creer et rempli la liste chainée contenant les          */
 /*                      livres d'une catégorie                                  */
 /*                                                                              */
-/* En entrée:  file         : fichier "Livres.txt"                              */
+/* En entrée:  file         : fichier ouvert dans createLibrary ("library.txt") */
 /*             curLib       : pointeur courant sur la bibliothèque (par valeur) */
 /*             categorySize : entier, nombre de livres dans la catégorie        */
 /*                                                                              */
@@ -31,8 +31,10 @@ int fillBooksInLibrary(FILE *, library_t *, int);
 
 /* ------------------------------------------ */
 /* createLibrary_OLD                          */
+/*          ancienne version de createLibrary */
 /*                                            */
-/* En entrée:                                 */
+/* En entrée:  filename                       */
+/*             library                        */
 /*                                            */
 /* En sortie:  void                           */
 /* ------------------------------------------ */
@@ -40,11 +42,9 @@ void createLibrary_OLD(char *, library_t **);
 
 
 /* -------------------------------------------------------------------- */
-/* displayLibrary                                                       */
+/* displayLibrary      Affiche la bibliothèque                          */
 /*                                                                      */
-/* En entrée:                                                           */
-/*                                                                      */
-/*                                                                      */
+/* En entrée:  curLib : pointeur sur la bibliothèque (par valeur)       */
 /*                                                                      */
 /* En sortie:  void                                                     */
 /* -------------------------------------------------------------------- */
@@ -52,11 +52,10 @@ void displayLibrary(library_t *);
 
 
 /* -------------------------------------------------------------------- */
-/* remove_endstr_r_windows                                              */
+/* remove_endstr_r_windows   Supprime le caractère \r de fin de chaine  */
+/*                           si il existe                               */
 /*                                                                      */
-/* En entrée:                                                           */
-/*                                                                      */
-/*                                                                      */
+/* En entrée:  line : chaine de caractères                              */
 /*                                                                      */
 /* En sortie:  void                                                     */
 /* -------------------------------------------------------------------- */
@@ -64,11 +63,10 @@ void remove_endstr_r_windows(char *);
 
 
 /* -------------------------------------------------------------------- */
-/* freeAllLists                                                         */
+/* freeAllLists    Libère la mémoire                                    */
 /*                                                                      */
-/* En entrée:                                                           */
-/*                                                                      */
-/*                                                                      */
+/* En entrée:  library    : pointeur sur la bibliothèque (par adresse)  */
+/*             borrowings : pointeur sur la liste emprunts (par adresse)*/
 /*                                                                      */
 /* En sortie:  void                                                     */
 /* -------------------------------------------------------------------- */
