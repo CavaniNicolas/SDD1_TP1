@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "commun.h"
 #include "menu.h"
 #include "emprunts.h"
@@ -88,7 +89,8 @@ int menu(library_t ** library, borrowings_t ** borrowings) {
 				break;
 
 			case 5:
-				saveBorrowingsInFile("emprunts/yoloAsupprimer.txt", *library, *borrowings);
+				createFilename(filename);
+				saveBorrowingsInFile(filename, *library, *borrowings);
 				break;
 
 			default:
@@ -122,6 +124,24 @@ int isDateInputCorrect(char date[9]) {
 	return error;
 }
 
+
+
+
+void createFilename(char * filename) {
+	int h, min, s, day, month, year;
+	time_t now;
+	time(&now);
+
+	struct tm *local = localtime(&now);
+	h = local->tm_hour;
+	min = local->tm_min;
+	s = local->tm_sec;
+	day = local->tm_mday;
+	month = local->tm_mon + 1;
+	year = local->tm_year + 1900;
+
+	snprintf(filename, 37, "emprunts/%d-%02d-%02d_%02dh%02d'%02d''", year, month, day, h, min, s);
+}
 
 
 void emptyBuffer() {

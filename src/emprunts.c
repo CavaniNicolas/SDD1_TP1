@@ -171,12 +171,14 @@ void deleteBorrowing(borrowings_t ** borrowings, int bookNb) {
 
 void displayBorrowingsBeforeDate(borrowings_t * curBorrow, char date[9]) {
 	int i = 0;
+
 	printf("\n");
 	while (curBorrow != NULL && atoi(curBorrow->returnDate) < atoi(date)) {
 		printf("   Livre numero : \033[35m%d\033[00m à rendre avant le \033[35m%s\033[00m\n", curBorrow->bookNb, curBorrow->returnDate);
 		curBorrow = curBorrow->next;
 		i++;
 	}
+
 	if (i == 0) {
 		printf("   Aucun livre à rendre avant cette date\n");
 	}
@@ -194,8 +196,12 @@ void saveBorrowingsInFile(char * filename, library_t * library, borrowings_t * c
 	while (curBorrow != NULL) {
 		findCategoryName(library, curBorrow->bookNb, category);
 		fprintf(stdout, "      %s %d %s\n", category, curBorrow->bookNb, curBorrow->returnDate);
-		fprintf(file, "%s %d %s\n", category, curBorrow->bookNb, curBorrow->returnDate);
+		fprintf(file, "%s %d %s", category, curBorrow->bookNb, curBorrow->returnDate);
 		curBorrow = curBorrow->next;
+
+		if (curBorrow != NULL) {
+			fprintf(file, "\n");
+		}
 	}
 
 	fclose(file);
@@ -208,12 +214,15 @@ void findCategoryName(library_t * curLib, int bookNb, char category[4]) {
 	while (curLib != NULL && isfound == 0) {
 		strcpy(category, curLib->category);
 		curBooks = curLib->begBooks;
+
 		while (curBooks != NULL && curBooks->bookNb != bookNb) {
 			curBooks = curBooks->next;
 		}
+
 		if (curBooks != NULL) {
 			isfound = 1;
 		}
+
 		curLib = curLib->next;
 	}
 }

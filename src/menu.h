@@ -33,4 +33,7 @@ void emptyBuffer();
 int isDateInputCorrect(char date[9]);
 
 
+void createFilename(char *);
+
+
 #endif
