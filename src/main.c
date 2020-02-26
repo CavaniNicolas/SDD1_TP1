@@ -33,13 +33,13 @@ int main(int argc, char ** argv) {
 				findFilenameMax(filename);
 
 				if (strcmp(filename, "0000-00-00_00h00'00''")) {
-					snprintf(filePath, 40, "./emprunts/%s", filename);
+					snprintf(filePath, 40, "./borrowings/%s", filename);
 				} else {
-					strcpy(filePath, "Emprunts.txt");
+					strcpy(filePath, "text_files/borrowings.txt");
 				}
 
 				borrowBook(filePath, library, &borrowings);
-				broughtBackBook("Rendus.txt", library, &borrowings);
+				broughtBackBook("text_files/brought_back.txt", library, &borrowings);
 				printf("   Actualisation des livres empruntés depuis : \033[32m%s\033[00m\n", filePath);
 
 				while (inMenu != 0) {

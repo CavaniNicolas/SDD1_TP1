@@ -55,9 +55,9 @@ int menu(library_t ** library, borrowings_t ** borrowings) {
 
 			case 3:
 				printf("\n" \
-				        "\033[32m   |\033[36m Nom du fichier des rendus : \033[32m|\n" \
-					            "   |\033[36m    \"Rendus.txt\"         : 1 \033[32m|\n" \
-					            "   |\033[36m    Autre nom à entrer   : 0 \033[32m|\033[00m\n" \
+				        "\033[32m   |\033[36m Nom du fichier des rendus :          \033[32m|\n" \
+					            "   |\033[36m    text_files/brought_back.txt   : 1 \033[32m|\n" \
+					            "   |\033[36m    Autre nom à entrer            : 0 \033[32m|\033[00m\n" \
 					    "         -: ");
 				scanf("%d",&typeFilename);
 
@@ -65,12 +65,14 @@ int menu(library_t ** library, borrowings_t ** borrowings) {
 					printf("\n\033[32m   |\033[36m Entrer le nom du fichier des retours : \033[32m|\033[00m\n" \
 						    "         -: ");
 					scanf("%s", filename);
-					printf("   Actualisation des livres empruntés depuis le fichier des retours : \033[32m%s\033[00m\n", filename);
+					printf("   Actualisation des livres empruntés depuis le fichier des retours :\n" \
+						   "         \033[32m%s\033[00m\n", filename);
 					broughtBackBook(filename, *library, borrowings);
 
 				} else if (typeFilename == 1) {
-					strcpy(filename, "Rendus.txt");
-					printf("   Actualisation des livres empruntés depuis le fichier des retours : \033[32m%s\033[00m\n", filename);
+					strcpy(filename, "text_files/brought_back.txt");
+					printf("   Actualisation des livres empruntés depuis le fichier des retours :\n" \
+						   "         \033[32m%s\033[00m\n", filename);
 					broughtBackBook(filename, *library, borrowings);
 				
 				} else {
