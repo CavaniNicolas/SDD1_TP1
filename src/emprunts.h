@@ -35,7 +35,7 @@ void borrowBook(char *, library_t *, borrowings_t **);
 /* En sortie:  pointeur contenant l'adresse du livre de la bibliothèque    */
 /*             que l'on souhaite emprunter, NULL si il n'est pas trouvé    */
 /* ----------------------------------------------------------------------- */
-books_t * isBookInLibrary(library_t *, char[4], int);
+books_t * isBookInLibrary(library_t const *, char[4], int);
 
 
 /* ------------------------------------------------------------------------ */
@@ -89,21 +89,21 @@ void deleteBorrowing(borrowings_t ** , int);
 /*                                                                       */
 /* En sortie:  void                                                      */
 /* --------------------------------------------------------------------- */
-void isBorrowedToFalse(library_t *, char[4], int);
+void isBorrowedToFalse(library_t const *, char[4], int);
 
 
 
 
-/* ---------------------------------------------------------------------- */
-/* displayBorrowingsBeforeDate  Affiche le numéro et dateRetour des       */
-/*                              livres à rendre avant date (en paramètre) */
-/*                                                                        */
-/* En entrée:  borrowings : pointeur sur la liste emprunts (par valeur)   */
-/*             date       : chaine de caractère                           */
-/*                                                                        */
-/* En sortie:  void                                                       */
-/* ---------------------------------------------------------------------- */
-void displayBorrowingsBeforeDate(borrowings_t *, char[9]);
+/* --------------------------------------------------------------------------- */
+/* displayBorrowingsBeforeDate  Affiche le numéro et dateRetour des            */
+/*                              livres à rendre avant date (en paramètre)      */
+/*                                                                             */
+/* En entrée:  curBorrow : pointeur courant sur la liste emprunts (par valeur) */
+/*             date      : chaine de caractère                                 */
+/*                                                                             */
+/* En sortie:  void                                                            */
+/* --------------------------------------------------------------------------- */
+void displayBorrowingsBeforeDate(borrowings_t const *, char[9]);
 
 
 /* ---------------------------------------------------------------------- */
@@ -116,7 +116,7 @@ void displayBorrowingsBeforeDate(borrowings_t *, char[9]);
 /*                                                                        */
 /* En sortie:  void                                                       */
 /* ---------------------------------------------------------------------- */
-void saveBorrowingsInFile(char *, library_t *, borrowings_t * curBorrow);
+void saveBorrowingsInFile(char *, library_t const *, borrowings_t const * curBorrow);
 
 
 /* ---------------------------------------------------------------------- */
@@ -130,7 +130,7 @@ void saveBorrowingsInFile(char *, library_t *, borrowings_t * curBorrow);
 /*                                                                        */
 /* En sortie:  void                                                       */
 /* ---------------------------------------------------------------------- */
-void findCategoryName(library_t *, int, char[4]);
+void findCategoryName(library_t const *, int, char[4]);
 
 
 #endif

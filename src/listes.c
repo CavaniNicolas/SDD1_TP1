@@ -5,10 +5,6 @@
 #include "commun.h"
 #include "listes.h"
 
-// %[^\n] pour recuperer les chaines de caracteres comportant des espaces jusquau premier \n a laide dun scanf
-// dans un scanf : %n permet de recuperer le nombre de caractere lu par le scanf
-// scanf return le nombre d'arguments quelle a rempli (largument %n nest pas pris en compte)
-
 
 int createLibrary(char * filename, library_t ** library) {
 	int error = 1;
@@ -60,6 +56,7 @@ int fillBooksInLibrary(FILE * file, library_t * curLib, int categorySize) {
 		elemBooks = (books_t *)malloc(sizeof(books_t));
 
 		if (elemBooks != NULL) {
+			// %[^\n] pour récupérer les chaines de caracteres comportants des espaces jusqu'au premier \n à l'aide d'un scanf
 			fscanf(file, "%d %[^\n]", &bookNb, title);
 			remove_endstr_r_windows(title);
 			elemBooks->bookNb = bookNb;
@@ -98,7 +95,7 @@ void remove_endstr_r_windows(char * line){
 }
 
 
-void displayLibrary(library_t * curLib) {
+void displayLibrary(library_t const * curLib) {
 	books_t   * curBooks = NULL;
 
 	printf("\n\033[32m   On affiche la bibliothèque :\033[00m\n");

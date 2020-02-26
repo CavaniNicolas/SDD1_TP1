@@ -30,7 +30,9 @@ int menu(library_t ** library, borrowings_t ** borrowings) {
 " |\033[36m                    Quitter                    : 0 \033[33m|\n" \
 " -----------------------------------------------------\n\033[00m" \
 "         -: ");
-	
+
+	// Dans un scanf : %n permet de récupérer le nombre de caractères lu par le scanf
+	// scanf return le nombre d'arguments qu'elle a rempli (l'argument %n n'est pas pris en compte)
 	argNb = scanf("%n%d", &argNb, &choice);
 	// On vide le buffer dans le cas où autre chose qu'un int a été entré
 	emptyBuffer();

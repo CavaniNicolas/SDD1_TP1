@@ -51,7 +51,7 @@ void borrowBook(char * filename, library_t * library, borrowings_t ** borrowings
 }
 
 
-books_t * isBookInLibrary(library_t * curLib, char category[4], int bookNb) {
+books_t * isBookInLibrary(library_t const * curLib, char category[4], int bookNb) {
 	books_t * curBooks = NULL;
 
 	while (curLib != NULL && strcmp(curLib->category, category)) {
@@ -82,7 +82,6 @@ void insertBorrowing(borrowings_t ** borrowings, books_t * bookBorrowed, char da
 			elemBorrow->bookNb = bookBorrowed->bookNb;
 			strcpy(elemBorrow->returnDate, date);
 
-			// fct qui renvoie laddresse de lelem a faire
 			if (curBorrow != NULL && atoi(date) > atoi(curBorrow->returnDate)) {
 				while (curBorrow->next != NULL && atoi(date) > atoi(curBorrow->next->returnDate)) {
 					curBorrow=curBorrow->next;
@@ -95,8 +94,7 @@ void insertBorrowing(borrowings_t ** borrowings, books_t * bookBorrowed, char da
 			}
 		}
 
-	} else {
-		//printf("\n\033[31m   Livre de la liste à emprunter inexistant\033[00m\n");
+	// } else { Livre de la liste à emprunter inexistant }
 	}
 }
 
@@ -171,7 +169,7 @@ void isBorrowedToFalse(library_t * curLib, char category[4], int bookNb) {
 }
 
 
-void displayBorrowingsBeforeDate(borrowings_t * curBorrow, char date[9]) {
+void displayBorrowingsBeforeDate(borrowings_t const * curBorrow, char date[9]) {
 	int i = 0;
 
 	printf("\n");
@@ -187,7 +185,7 @@ void displayBorrowingsBeforeDate(borrowings_t * curBorrow, char date[9]) {
 }
 
 
-void saveBorrowingsInFile(char * filename, library_t * library, borrowings_t * curBorrow) {
+void saveBorrowingsInFile(char * filename, library_t const * library, borrowings_t const * curBorrow) {
 	FILE * file = NULL;
 	file = fopen(filename, "w");
 	char category[4];
@@ -209,7 +207,7 @@ void saveBorrowingsInFile(char * filename, library_t * library, borrowings_t * c
 }
 
 
-void findCategoryName(library_t * curLib, int bookNb, char category[4]) {
+void findCategoryName(library_t const * curLib, int bookNb, char category[4]) {
 	int isfound = 0;
 	books_t * curBooks = NULL;
 

@@ -34,7 +34,7 @@ int fillBooksInLibrary(FILE *, library_t *, int);
 /*                                                                      */
 /* En sortie:  void                                                     */
 /* -------------------------------------------------------------------- */
-void displayLibrary(library_t *);
+void displayLibrary(library_t const *);
 
 
 /* -------------------------------------------------------------------- */
