@@ -18,19 +18,23 @@ int main(int argc, char ** argv) {
 		int isStarted = 0;
 		int inMenu = 1;
 
-		printf("\n\033[36mCréer la liste Bibliothèque et actualiser les livres empruntés ?\n\t\033[32mOui  :1\n\t\033[31mNon  :0\033[00m\n\t\t-: ");
+		printf("\n\033[33m   | \033[36mCréer la liste Bibliothèque et actualiser les livres empruntés ?\033[33m |\n\t\033[32mOui  :1\n\t\033[31mNon  :0\033[00m\n\t\t-: ");
 		scanf("%d",&isStarted);
 
 		if (isStarted == 1) {
 			createLibrary(argv[1], &library);
-			
+			printf("   Création de la bibliothèque\n");
+
 			if (library != NULL) {
 				borrowBook("Emprunts.txt", library, &borrowings);
 				broughtBackBook("Rendus.txt", library, &borrowings);
-			}
+				printf("   Actualisation des livres empruntés\n");
 
-			while (inMenu != 0) {
-				inMenu = menu(&library, &borrowings);
+				while (inMenu != 0) {
+					inMenu = menu(&library, &borrowings);
+				}
+			} else {
+				printf("\033[31m   Bibliothèque vide\033[00m\n\n");
 			}
 
 			freeAllLists(&library, &borrowings);

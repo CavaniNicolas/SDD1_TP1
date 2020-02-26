@@ -6,6 +6,23 @@
 #include "emprunts.h"
 
 
+/*
+void findFileName() {
+	DIR * rep = opendir(".");
+
+	if (rep != NULL) {
+		struct dirent * ent;
+
+		while ((ent = readdir(rep)) != NULL) {
+			printf("%s\n", ent->d_name);
+		}
+
+		closedir(rep);
+	}
+}
+*/
+
+
 void displayBorrowings(borrowings_t const * curBorrow) {
 	printf("\n\033[32m   On affiche la liste des emprunts :\033[00m\n");
 	
@@ -30,7 +47,6 @@ void borrowBook(char * filename, library_t * library, borrowings_t ** borrowings
 	if (library != NULL) {
 
 		if (file != NULL) {
-			printf("\n   On lit le fichier emprunts\n");
 			char category[4];
 			int bookNb = 0;
 			char date[9];
@@ -47,7 +63,7 @@ void borrowBook(char * filename, library_t * library, borrowings_t ** borrowings
 		}
 
 	} else {
-		printf("\n\033[31m   Liste bibliotheque vide\033[00m\n");
+		printf("\n\033[31m   Bibliotheque vide\033[00m\n");
 	}
 }
 
@@ -97,7 +113,7 @@ void insertBorrowing(borrowings_t ** borrowings, books_t * bookBorrowed, char da
 		}
 
 	} else {
-		printf("\n\033[31m   Livre de la liste à emprunter inexistant\033[00m");
+		//printf("\n\033[31m   Livre de la liste à emprunter inexistant\033[00m\n");
 	}
 }
 
