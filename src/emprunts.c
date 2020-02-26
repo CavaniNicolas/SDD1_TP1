@@ -190,20 +190,23 @@ void saveBorrowingsInFile(char * filename, library_t const * library, borrowings
 	file = fopen(filename, "w");
 	char category[4];
 
-	printf("\n   fichier créé : \033[35m%s\033[00m\n", filename);
+	if (file != NULL) {
+		printf("\n   fichier créé : \033[35m%s\033[00m\n", filename);
 
-	while (curBorrow != NULL) {
-		findCategoryName(library, curBorrow->bookNb, category);
-		fprintf(stdout, "      %s %d %s\n", category, curBorrow->bookNb, curBorrow->returnDate);
-		fprintf(file, "%s %d %s", category, curBorrow->bookNb, curBorrow->returnDate);
-		curBorrow = curBorrow->next;
+		while (curBorrow != NULL) {
+			findCategoryName(library, curBorrow->bookNb, category);
+			fprintf(stdout, "      %s %d %s\n", category, curBorrow->bookNb, curBorrow->returnDate);
+			fprintf(file, "%s %d %s", category, curBorrow->bookNb, curBorrow->returnDate);
+			curBorrow = curBorrow->next;
 
-		if (curBorrow != NULL) {
-			fprintf(file, "\n");
+			if (curBorrow != NULL) {
+				fprintf(file, "\n");
+			}
 		}
-	}
 
-	fclose(file);
+		fclose(file);
+
+	}
 }
 
 

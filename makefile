@@ -1,4 +1,4 @@
-#option
+#options
 CFLAGS = -Wall -Wextra -g -MMD
 LIB = -lm
 
@@ -21,5 +21,9 @@ build/%.o: src/%.c
 .PHONY: clean
 clean:
 	rm -rf build
+
+.PHONY: reset
+reset:
+	rm -rf borrowings
 
 -include $(DEP)

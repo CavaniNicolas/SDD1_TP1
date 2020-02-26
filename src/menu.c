@@ -4,6 +4,9 @@
 #include <string.h>
 #include <time.h>
 #include <dirent.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include "commun.h"
 #include "menu.h"
 #include "emprunts.h"
@@ -137,6 +140,8 @@ void createFilename(char * filename) {
 	time_t now;
 	time(&now);
 
+	mkdir("borrowings", 777);
+
 	struct tm *local = localtime(&now);
 	h = local->tm_hour;
 	min = local->tm_min;
@@ -145,12 +150,12 @@ void createFilename(char * filename) {
 	month = local->tm_mon + 1;
 	year = local->tm_year + 1900;
 
-	snprintf(filename, 40, "emprunts/%d-%02d-%02d_%02dh%02d'%02d''", year, month, day, h, min, s);
+	snprintf(filename, 40, "borrowings/%d-%02d-%02d_%02dh%02d'%02d''", year, month, day, h, min, s);
 }
 
 
 void findFilenameMax(char filenameMax[22]) {
-	DIR * rep = opendir("./emprunts");
+	DIR * rep = opendir("./borrowings");
 	strcpy(filenameMax, "0000-00-00_00h00'00''");
 
 	if (rep != NULL) {
@@ -185,6 +190,7 @@ void findFilenameMax(char filenameMax[22]) {
 		}
 
 		closedir(rep);
+
 	}
 }
 
