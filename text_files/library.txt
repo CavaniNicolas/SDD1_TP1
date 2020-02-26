@@ -6,3 +6,5 @@ BD 2
 21 tintin
 23 titeuf
 JAP 0
+CAL 1
+28 caligros
