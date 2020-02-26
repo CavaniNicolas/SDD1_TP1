@@ -1,6 +1,7 @@
 #ifndef menuH
 #define menuH
 
+
 /* ---------------------------------------------------------------------- */
 /* menu        Fonction de menu (graphique)                               */
 /*                                                                        */
@@ -10,6 +11,7 @@
 /* En sortie:  int : On reste dans le menu tant que menu ne renvoie pas 0 */
 /* ---------------------------------------------------------------------- */
 int menu(library_t **, borrowings_t **);
+
 
 /* ------------------------------------------------ */
 /* emptyBuffer       Vide le Buffer                 */

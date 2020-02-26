@@ -5,76 +5,9 @@
 #include "commun.h"
 #include "listes.h"
 
-// %[^\n] pour recuperer les chaines de caracteres compportant des espaces jusquau premier \n a laide dun scanf
+// %[^\n] pour recuperer les chaines de caracteres comportant des espaces jusquau premier \n a laide dun scanf
 // dans un scanf : %n permet de recuperer le nombre de caractere lu par le scanf
-// scanf return le nombre d'arguments quelle a rempli (largumetn %n nest pas pris en compte)
-
-/*void createLibrary_OLD(char * filename, library_t ** library) {
-	FILE * file = NULL;
-	file = fopen(filename,"r");
-
-	if (file != NULL){
-		char categoryName[4];
-		int  categorySize = 0;
-		int  i = 0;
-		int  bookNb = 0;
-		char title[11];
-
-		library_t * elemLib;
-		library_t * curLib = *library;
-
-		books_t * elemBooks;
-
-		while (!feof(file)) {
-			fscanf(file,"%s %d", categoryName, &categorySize);
-			
-			elemLib = (library_t *)malloc(sizeof(library_t));
-		
-			if (elemLib != NULL) {
-
-				strcpy(elemLib->category, categoryName);
-				elemLib->begBooks = NULL;
-				elemLib->endBooks = NULL;
-				elemLib->next = NULL;
-
-				if (*library == NULL) {
-					*library=elemLib;
-				}
-				else {
-					curLib->next = elemLib;
-				}
-				curLib = elemLib;
-
-
-				for (i=0; i<categorySize; i++) {
-					fscanf(file, "%d %[^\n]", &bookNb, title);
-
-					elemBooks = (books_t *)malloc(sizeof(books_t));
-
-					if (elemBooks != NULL) {
-						elemBooks->bookNb = bookNb;
-						remove_endstr_r_windows(title);
-						strcpy(elemBooks->title, title);
-						elemBooks->isBorrowed = false;
-						elemBooks->next = NULL;
-
-						if (curLib->begBooks == NULL) {
-							curLib->begBooks = elemBooks;
-						}
-						else {
-							curLib->endBooks->next = elemBooks;
-						}
-						curLib->endBooks = elemBooks;
-					}
-				}
-			}
-		}
-			
-		fclose(file);
-	} else {
-		printf("\n\033[31m   Nom de fichier inexistant\033[00m\n");
-	}
-}*/
+// scanf return le nombre d'arguments quelle a rempli (largument %n nest pas pris en compte)
 
 
 int createLibrary(char * filename, library_t ** library) {
@@ -114,6 +47,7 @@ int createLibrary(char * filename, library_t ** library) {
 	return error;
 }
 
+
 int fillBooksInLibrary(FILE * file, library_t * curLib, int categorySize) {
 	int  error = 1;
 	int  i = 0;
@@ -139,6 +73,7 @@ int fillBooksInLibrary(FILE * file, library_t * curLib, int categorySize) {
 			} else {
 				curBooks->next = elemBooks;
 			}
+
 			curBooks = elemBooks;
 
 		} else {
@@ -162,6 +97,7 @@ void remove_endstr_r_windows(char * line){
 	}
 }
 
+
 void displayLibrary(library_t * curLib) {
 	books_t   * curBooks = NULL;
 
@@ -171,16 +107,20 @@ void displayLibrary(library_t * curLib) {
 		while (curLib != NULL) {
 			printf("\t%s\n", curLib->category);
 			curBooks = curLib->begBooks;
+
 			while (curBooks != NULL) {
 				printf("\t   %d %s %d\n", curBooks->bookNb, curBooks->title, curBooks->isBorrowed);
 				curBooks = curBooks->next;
 			}
+
 			curLib = curLib->next;
 		}
+
 	} else {
 		printf("\n\033[31m   Liste bibliothèque vide\033[00m\n");
 	}
 }
+
 
 void freeAllLists(library_t ** library, borrowings_t ** borrowings) {
 	library_t    * curLib = *library;

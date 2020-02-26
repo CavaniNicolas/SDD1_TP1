@@ -5,9 +5,8 @@
 #include "commun.h"
 #include "emprunts.h"
 
-// Affiche la liste des emprunts
-void displayBorrowings(borrowings_t const * borrowings) {
-	borrowings_t const * curBorrow = borrowings;
+
+void displayBorrowings(borrowings_t const * curBorrow) {
 	printf("\n\033[32m   On affiche la liste des emprunts :\033[00m\n");
 	
 	if (curBorrow != NULL) {
@@ -21,7 +20,7 @@ void displayBorrowings(borrowings_t const * borrowings) {
 
 }
 
-// Fct pour ajouter un emprunt
+
 void borrowBook(char * filename, library_t * library, borrowings_t ** borrowings) {
 	FILE * file = NULL;
 	file = fopen(filename, "r");
@@ -29,6 +28,7 @@ void borrowBook(char * filename, library_t * library, borrowings_t ** borrowings
 	books_t * bookBorrowed = NULL;
 
 	if (library != NULL) {
+
 		if (file != NULL) {
 			printf("\n   On lit le fichier emprunts\n");
 			char category[4];
@@ -41,9 +41,11 @@ void borrowBook(char * filename, library_t * library, borrowings_t ** borrowings
 				insertBorrowing(borrowings, bookBorrowed ,date);
 			}
 			fclose(file);
+
 		} else {
 			printf("\n\033[31m   Nom de fichier pour les emprunts inexistant\033[00m\n");
 		}
+
 	} else {
 		printf("\n\033[31m   Liste bibliotheque vide\033[00m\n");
 	}
@@ -93,6 +95,7 @@ void insertBorrowing(borrowings_t ** borrowings, books_t * bookBorrowed, char da
 				elemBorrow->next = curBorrow;
 			}
 		}
+
 	} else {
 		printf("\n\033[31m   Livre de la liste à emprunter inexistant\033[00m");
 	}
@@ -104,6 +107,7 @@ void broughtBackBook(char * filename, library_t * library, borrowings_t ** borro
 	file = fopen(filename, "r");
 
 	if (library != NULL) {
+
 		if (file != NULL) {
 			char category[4];
 			int  bookNb = 0;
@@ -118,6 +122,7 @@ void broughtBackBook(char * filename, library_t * library, borrowings_t ** borro
 		} else {
 			printf("\n\033[31m   Nom de fichier pour les retours inexistant\033[00m\n");
 		}
+
 	} else {
 		printf("\n\033[31m   Liste bibliotheque vide\033[00m\n");
 	}
@@ -135,8 +140,7 @@ void deleteBorrowing(borrowings_t ** borrowings, int bookNb) {
 
 	if (curBorrow != NULL) {
 		prevBorrow->next = curBorrow->next;
-	}
-	else {
+	} else {
 		prevBorrow->next = NULL;
 	}
 
@@ -184,7 +188,6 @@ void displayBorrowingsBeforeDate(borrowings_t * curBorrow, char date[9]) {
 }
 
 
-
 void saveBorrowingsInFile(char * filename, library_t * library, borrowings_t * curBorrow) {
 	FILE * file = NULL;
 	file = fopen(filename, "w");
@@ -205,6 +208,7 @@ void saveBorrowingsInFile(char * filename, library_t * library, borrowings_t * c
 
 	fclose(file);
 }
+
 
 void findCategoryName(library_t * curLib, int bookNb, char category[4]) {
 	int isfound = 0;

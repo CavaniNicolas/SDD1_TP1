@@ -8,6 +8,7 @@
 #include "emprunts.h"
 #include "listes.h"
 
+
 int menu(library_t ** library, borrowings_t ** borrowings) {
 	int  choice = -1;
 	char filename[255];
@@ -70,7 +71,6 @@ int menu(library_t ** library, borrowings_t ** borrowings) {
 				} else {
 					printf("\n\033[31m   Choix Invalide\033[00m\n");
 				}
-
 				break;
 
 			case 4:
@@ -85,7 +85,6 @@ int menu(library_t ** library, borrowings_t ** borrowings) {
 				} else {
 					printf("\n\033[31m   Date Invalide\033[00m\n");
 				}
-
 				break;
 
 			case 5:
@@ -117,14 +116,13 @@ int isDateInputCorrect(char date[9]) {
 		}
 		i++;
 	}
+
 	if (i != 8) {
 		date[8] = '\0';
 		error = 0;
 	}
 	return error;
 }
-
-
 
 
 void createFilename(char * filename) {

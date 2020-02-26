@@ -1,13 +1,14 @@
 #ifndef empruntsH
 #define empruntsH
 
-/* --------------------------------------------------------------------------------- */
-/* displayBorrowings      Affiche la liste des emprunts                              */
-/*                                                                                   */
-/* En entrée:  borrowings : pointeur constant sur la liste emprunts (par valeur)     */
-/*                                                                                   */
-/* En sortie:  void                                                                  */
-/* --------------------------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------------------- */
+/* displayBorrowings      Affiche la liste des emprunts                         */
+/*                                                                              */
+/* En entrée:  curBorrow : pointeur courant sur la liste emprunts (par valeur)  */
+/*                                                                              */
+/* En sortie:  void                                                             */
+/* ---------------------------------------------------------------------------- */
 void displayBorrowings(borrowings_t const *);
 
 

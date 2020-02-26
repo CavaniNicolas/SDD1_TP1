@@ -16,6 +16,7 @@ int main(int argc, char ** argv) {
 		borrowings_t * borrowings = NULL;
 
 		int isStarted = 0;
+		int inMenu = 1;
 
 		printf("\n\033[36mCréer la liste Bibliothèque et actualiser les livres empruntés ?\n\t\033[32mOui  :1\n\t\033[31mNon  :0\033[00m\n\t\t-: ");
 		scanf("%d",&isStarted);
@@ -26,16 +27,11 @@ int main(int argc, char ** argv) {
 			if (library != NULL) {
 				borrowBook("Emprunts.txt", library, &borrowings);
 				broughtBackBook("Rendus.txt", library, &borrowings);
-
 			}
 
-			int inMenu = 1;
 			while (inMenu != 0) {
 				inMenu = menu(&library, &borrowings);
 			}
-
-			// displayBorrowings(borrowings);
-			// displayLibrary(library);
 
 			freeAllLists(&library, &borrowings);
 

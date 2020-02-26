@@ -2,8 +2,6 @@
 #define communH
 #include <stdbool.h>
 
-// doxygen documentation generator
-// Greffon pour code
 
 typedef struct books{ // Triée selon numero bookNb croissant
 	int bookNb;
@@ -12,16 +10,19 @@ typedef struct books{ // Triée selon numero bookNb croissant
 	struct books * next;
 }books_t;
 
+
 typedef struct library{ // Liste non triée
 	char category[4];
 	struct books * begBooks;
 	struct library * next;
 }library_t;
 
+
 typedef struct borrowings{ // Triée sur la date retour en croissant
 	int bookNb;
 	char returnDate[9]; // Forme AAAAMMJJ
 	struct borrowings * next;
 }borrowings_t;
+
 
 #endif

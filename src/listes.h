@@ -1,6 +1,7 @@
 #ifndef listesH
 #define listesH
 
+
 /* -------------------------------------------------------------------- */
 /* createLibrary   Creer la bibliothèque (liste chainée library)        */
 /*                                                                      */
@@ -24,21 +25,6 @@ int createLibrary(char *, library_t **);
 /* En sortie:  void                                                             */
 /* ---------------------------------------------------------------------------- */
 int fillBooksInLibrary(FILE *, library_t *, int);
-
-//________________________________________________________________________________________________________
-
-
-
-/* ------------------------------------------ */
-/* createLibrary_OLD                          */
-/*          ancienne version de createLibrary */
-/*                                            */
-/* En entrée:  filename                       */
-/*             library                        */
-/*                                            */
-/* En sortie:  void                           */
-/* ------------------------------------------ */
-void createLibrary_OLD(char *, library_t **);
 
 
 /* -------------------------------------------------------------------- */
@@ -71,5 +57,6 @@ void remove_endstr_r_windows(char *);
 /* En sortie:  void                                                     */
 /* -------------------------------------------------------------------- */
 void freeAllLists(library_t **, borrowings_t **);
+
 
 #endif
