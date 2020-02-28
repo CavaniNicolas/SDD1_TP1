@@ -7,10 +7,10 @@
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include "commun.h"
+#include "common.h"
 #include "menu.h"
-#include "emprunts.h"
-#include "listes.h"
+#include "borrow.h"
+#include "lists.h"
 
 
 int menu(library_t ** library, borrowings_t ** borrowings) {

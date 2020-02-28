@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "commun.h"
-#include "emprunts.h"
+#include "common.h"
+#include "borrow.h"
 
 
 void displayBorrowings(borrowings_t const * curBorrow) {

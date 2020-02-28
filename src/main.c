@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "commun.h"
-#include "emprunts.h"
-#include "listes.h"
+#include "common.h"
+#include "borrow.h"
+#include "lists.h"
 #include "menu.h"
 
 

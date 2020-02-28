@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "commun.h"
-#include "listes.h"
+#include "common.h"
+#include "lists.h"
 
 
 int createLibrary(char * filename, library_t ** library) {
