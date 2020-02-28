@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------- */
 /*  lists.c                                                                    */
-/*              contient les fonctions associées à la liste bibliothèque       */
+/*              Contient les fonctions associées à la liste bibliothèque       */
 /*                                                                             */
 /* --------------------------------------------------------------------------- */
 
@@ -12,16 +12,16 @@
 
 
 int createLibrary(char * filename, library_t ** library) {
-	int error = 1;
+	int error = 1; /*Retour d'erreur*/
 
-	FILE * file = NULL;
+	FILE * file = NULL;  /*Fichier*/
 	file = fopen(filename, "r");
 
 	if (file != NULL) {
-		char category[4] = "_";
-		int  categorySize = 0;
+		char        category[4]  = "_";  /*Catégorie lue dans le fichier*/
+		int         categorySize = 0;    /*Nombre de livre dans une catégorie*/
 
-		library_t * elemLib = NULL;
+		library_t * elemLib      = NULL; /*Element alloué*/
 
 		while (!feof(file)) {
 
@@ -37,6 +37,7 @@ int createLibrary(char * filename, library_t ** library) {
 					elemLib->next = *library;
 					*library = elemLib;
 
+					/*Remplie la liste des livres d'une catégorie*/
 					fillBooksInLibrary(file, elemLib, categorySize);
 				}
 
@@ -54,12 +55,12 @@ int createLibrary(char * filename, library_t ** library) {
 
 
 int fillBooksInLibrary(FILE * file, library_t * curLib, int categorySize) {
-	int  error = 1;
-	int  i = 0;
-	int  bookNb = 0;
-	char title[11];
-	books_t * elemBooks = NULL;
-	books_t * curBooks = curLib->begBooks;
+	int       error     = 1;                /*Retour d'erreur*/
+	int       i         = 0;                /*Compteur*/
+	int       bookNb    = 0;                /*Numéro du livre lu dans le fichier*/
+	char      title[11];                    /*Titre lu dans le fichier*/
+	books_t * elemBooks = NULL;             /*Element alloué*/
+	books_t * curBooks  = curLib->begBooks; /*Pointeur courant sur la liste des livres d'une catégorie*/
 
 	for (i=0; i<categorySize; i++) {
 		elemBooks = (books_t *)malloc(sizeof(books_t));
@@ -91,7 +92,7 @@ int fillBooksInLibrary(FILE * file, library_t * curLib, int categorySize) {
 
 
 void remove_endstr_r_windows(char * line){
-	int i = 0;
+	int i = 0; /*Compteur*/
 
 	while (line[i]!='\0') {
 		i++;
@@ -105,7 +106,7 @@ void remove_endstr_r_windows(char * line){
 
 
 void displayLibrary(library_t const * curLib) {
-	books_t   * curBooks = NULL;
+	books_t * curBooks = NULL; /*Pointeur courant sur la liste des livres d'une catégorie*/
 
 	printf("\n\033[32m   On affiche la bibliothèque :\033[00m\n");
 
@@ -129,24 +130,28 @@ void displayLibrary(library_t const * curLib) {
 
 
 void freeAllLists(library_t ** library, borrowings_t ** borrowings) {
-	library_t    * curLib = *library;
-	books_t      * curBooks = NULL;
-	borrowings_t * curBorrow = *borrowings;
+	library_t    * curLib    = *library;    /*Pointeur courant sur la bibliothèque*/
+	books_t      * curBooks  = NULL;        /*Pointeur courant sur la liste des livres d'une catégorie*/
+	borrowings_t * curBorrow = *borrowings; /*Pointeur courant sur la liste des emprunts*/
 
+	/*Libération de la bibliothèque*/
 	while (*library != NULL) {
 		curBooks = curLib->begBooks;
 
+		/*Libération des livres d'une catégorie*/
 		while (curLib->begBooks != NULL) {
 			curBooks = curBooks->next;
 			free(curLib->begBooks);
 			curLib->begBooks = curBooks;
 		}
 		
+		/*Libération des catégories*/
 		curLib = curLib->next;
 		free(*library);
 		*library = curLib;
 	}
 
+	/*Libération de la liste des emprunts*/
 	while (*borrowings != NULL) {
 		curBorrow = curBorrow->next;
 		free(*borrowings);

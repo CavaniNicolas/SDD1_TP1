@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------- */
 /*  lists.h                                                                    */
-/*            contient les déclarations des fonctions du fichier lists.c       */
+/*            Contient les déclarations des fonctions du fichier lists.c       */
 /*                                                                             */
 /* --------------------------------------------------------------------------- */
 
@@ -21,7 +21,7 @@ int createLibrary(char *, library_t **);
 
 
 /* ---------------------------------------------------------------------------- */
-/* fillBooksInLibrary   creer et rempli la liste chainée contenant les          */
+/* fillBooksInLibrary   Creer et rempli la liste chainée contenant les          */
 /*                      livres d'une catégorie                                  */
 /*                                                                              */
 /* En entrée:  file         : fichier ouvert dans createLibrary ("library.txt") */

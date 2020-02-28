@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------- */
 /*  borrow.c                                                                   */
-/*              contient les fonctions associées à la liste des emprunts       */
+/*              Contient les fonctions associées à la liste des emprunts       */
 /*                                                                             */
 /* --------------------------------------------------------------------------- */
 
@@ -27,7 +27,7 @@ void displayBorrowings(borrowings_t const * curBorrow) {
 
 
 void borrowBook(char * filename, library_t * library, borrowings_t ** borrowings) {
-	FILE * file = NULL;
+	FILE * file = NULL;   /*Fichier*/
 	file = fopen(filename, "r");
 
 	books_t * bookBorrowed = NULL;
@@ -35,16 +35,17 @@ void borrowBook(char * filename, library_t * library, borrowings_t ** borrowings
 	if (library != NULL) {
 
 		if (file != NULL) {
-			char category[4] = "_";
-			int bookNb = 0;
-			char date[9];
+			char category[4] = "_"; /*Categorie lue dans le fichier*/
+			int  bookNb      = 0;   /*Numero du livre lu dans le fichier*/
+			char date[9];           /*Date de rendu lue dans le fichier*/
 
 			while (!feof(file)) {
 				fscanf(file, "%s %d %s", category, &bookNb, date);
 
-				// verification importante dans le cas où le fichier ne contient qu'une ligne avec \n
+				// Verification importante dans le cas où le fichier ne contient qu'une ligne avec \n
 				if (category[0] != '_') {
-					bookBorrowed = isBookInLibrary(library, category, bookNb);
+					bookBorrowed = isBookInLibrary(library, category, bookNb); /*bookBorrowed == NULL si le livre n'a pas été trouvé dans la bibliothèque*/
+					/*On insère le livre dans la liste des emprunts*/
 					insertBorrowing(borrowings, bookBorrowed ,date);
 				}
 			}
@@ -61,7 +62,7 @@ void borrowBook(char * filename, library_t * library, borrowings_t ** borrowings
 
 
 books_t * isBookInLibrary(library_t const * curLib, char category[4], int bookNb) {
-	books_t * curBooks = NULL;
+	books_t * curBooks = NULL; /*Pointeur courant sur la liste des livres d'une catégorie*/
 
 	while (curLib != NULL && strcmp(curLib->category, category)) {
 		curLib = curLib->next;
@@ -79,9 +80,10 @@ books_t * isBookInLibrary(library_t const * curLib, char category[4], int bookNb
 
 
 void insertBorrowing(borrowings_t ** borrowings, books_t * bookBorrowed, char date[9]) {
-	borrowings_t * curBorrow = *borrowings;
-	borrowings_t * elemBorrow = NULL;
+	borrowings_t * curBorrow  = *borrowings; /*Pointeur courant sur la liste des emprunts*/
+	borrowings_t * elemBorrow = NULL;        /*Element alloué*/
 
+	/*Modifie la valeur de isBorrowed dans la bibliothèque*/
 	if (bookBorrowed != NULL && bookBorrowed->isBorrowed != true) {
 		bookBorrowed->isBorrowed = true;
 
@@ -91,6 +93,7 @@ void insertBorrowing(borrowings_t ** borrowings, books_t * bookBorrowed, char da
 			elemBorrow->bookNb = bookBorrowed->bookNb;
 			strcpy(elemBorrow->returnDate, date);
 
+			/*Place le livre au bon endroit dans la bibliothèque (trié par date croissante)*/
 			if (curBorrow != NULL && atoi(date) > atoi(curBorrow->returnDate)) {
 				while (curBorrow->next != NULL && atoi(date) > atoi(curBorrow->next->returnDate)) {
 					curBorrow=curBorrow->next;
@@ -109,21 +112,23 @@ void insertBorrowing(borrowings_t ** borrowings, books_t * bookBorrowed, char da
 
 
 void broughtBackBook(char * filename, library_t * library, borrowings_t ** borrowings) {
-	FILE * file = NULL;
+	FILE * file = NULL;   /*Fichier*/
 	file = fopen(filename, "r");
 
 	if (library != NULL) {
 
 		if (file != NULL) {
-			char category[4] = "_";
-			int  bookNb = 0;
+			char category[4] = "_"; /*Categorie lue dans le fichier*/
+			int  bookNb      = 0;   /*Numero du livre lu dans le fichier*/
 
 			while (!feof(file)) {
 				fscanf(file, "%s %d", category, &bookNb);
 
-				// verification importante dans le cas où le fichier ne contient qu'une ligne avec \n
+				// Verification importante dans le cas où le fichier ne contient qu'une ligne avec \n
 				if (category[0] != '_') {
+					/*Supprime le livre de la liste emprunts*/
 					deleteBorrowing(borrowings, bookNb);
+					/*Modifie la valeur de isBorrowed dans la bibliothèque*/
 					isBorrowedToFalse(library, category, bookNb);
 				}
 			}
@@ -140,8 +145,8 @@ void broughtBackBook(char * filename, library_t * library, borrowings_t ** borro
 
 
 void deleteBorrowing(borrowings_t ** borrowings, int bookNb) {
-	borrowings_t * curBorrow = *borrowings;
-	borrowings_t * prevBorrow = *borrowings;
+	borrowings_t * curBorrow  = *borrowings; /*Pointeur courant sur la liste des emprunts*/
+	borrowings_t * prevBorrow = *borrowings; /*Pointeur courant précédent sur la liste des emprunts*/
 
 	if (*borrowings != NULL) {
 
@@ -161,14 +166,14 @@ void deleteBorrowing(borrowings_t ** borrowings, int bookNb) {
 		}
 
 		free(curBorrow);
-
 	}
 }
 
 
 void isBorrowedToFalse(library_t * curLib, char category[4], int bookNb) {
-	books_t * curBooks = NULL;
+	books_t * curBooks = NULL; /*Pointeur courant sur la liste des livres d'une catégorie*/
 
+	/*Cherche le livre rendu dans la bibliothèque*/
 	while (curLib != NULL && strcmp(curLib->category,category)) {
 		curLib = curLib->next;
 	}
@@ -180,6 +185,7 @@ void isBorrowedToFalse(library_t * curLib, char category[4], int bookNb) {
 		}
 	}
 
+	/*Modifie la valeur de isBorrowed dans la bibliothèque*/
 	if (curBooks->bookNb == bookNb) {
 		curBooks->isBorrowed = false;
 	}
@@ -187,7 +193,7 @@ void isBorrowedToFalse(library_t * curLib, char category[4], int bookNb) {
 
 
 void displayBorrowingsBeforeDate(borrowings_t const * curBorrow, char date[9]) {
-	int i = 0;
+	int i = 0; /*Compteur*/
 
 	printf("\n");
 	while (curBorrow != NULL && atoi(curBorrow->returnDate) < atoi(date)) {
@@ -203,9 +209,9 @@ void displayBorrowingsBeforeDate(borrowings_t const * curBorrow, char date[9]) {
 
 
 void saveBorrowingsInFile(char * filename, library_t const * library, borrowings_t const * curBorrow) {
-	FILE * file = NULL;
+	FILE * file = NULL;  /*Fichier*/
 	file = fopen(filename, "w");
-	char category[4];
+	char category[4];    /*Categorie du livre à sauvegarder*/
 
 	if (file != NULL) {
 		printf("\n   fichier créé : \033[35m%s\033[00m\n", filename);
@@ -228,8 +234,8 @@ void saveBorrowingsInFile(char * filename, library_t const * library, borrowings
 
 
 void findCategoryName(library_t const * curLib, int bookNb, char category[4]) {
-	int isfound = 0;
-	books_t * curBooks = NULL;
+	int       isfound  = 0;    /*Livre trouvé (1) ou non (0)*/
+	books_t * curBooks = NULL; /*Pointeur courant sur la liste des livres d'une catégorie*/
 
 	while (curLib != NULL && isfound == 0) {
 		strcpy(category, curLib->category);

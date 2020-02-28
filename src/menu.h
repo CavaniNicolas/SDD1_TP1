@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------- */
 /*  menu.h                                                                     */
-/*            contient les déclarations des fonctions du fichier menu.c        */
+/*            Contient les déclarations des fonctions du fichier menu.c        */
 /*                                                                             */
 /* --------------------------------------------------------------------------- */
 

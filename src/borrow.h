@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------- */
 /*  borrow.h                                                                   */
-/*             contient les déclarations des fonctions du fichier borrow.c     */
+/*             Contient les déclarations des fonctions du fichier borrow.c     */
 /*                                                                             */
 /* --------------------------------------------------------------------------- */
 

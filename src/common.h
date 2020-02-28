@@ -1,5 +1,5 @@
 /* --------------------------------------------------------------------------- */
-/*  common.h         contient les déclarations des structures de               */
+/*  common.h         Contient les déclarations des structures de               */
 /*                   listes communes aux autres fichiers du projet             */
 /*                                                                             */
 /* --------------------------------------------------------------------------- */
