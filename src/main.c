@@ -22,7 +22,6 @@ int main(int argc, char ** argv) {
 		borrowings_t * borrowings = NULL; /*Liste emprunts*/
 
 		int            isStarted  = 0;    /*On lance le programme ou non*/
-		int            inMenu     = 1;    /*On reste dans le menu tant que inMenu != 0*/
 
 		char           filename[22];      /*Nom du fichier à appeler*/
 		char           filePath[40];      /*Chemin vers le fichier à appeler*/
@@ -57,17 +56,16 @@ int main(int argc, char ** argv) {
 				broughtBackBook(filePath, library, &borrowings);
 				printf("   Actualisation des livres rendus depuis : \033[32m%s\033[00m\n", filePath);
 
-				/*Lancement du Menu, on y reste tant que inMenu != 0*/
-				while (inMenu != 0) {
-					inMenu = menu(&library, &borrowings);
-				}
+				/*Lancement du menu*/
+				menu(&library, &borrowings);
 
 			} else {
 				printf("\033[31m   Bibliothèque vide\033[00m\n\n");
 			}
 
 			/*Libération de la mémoire*/
-			freeAllLists(&library, &borrowings);
+			freeLibrary(&library);
+			freeBorrowings(&borrowings);
 
 		} else {
 			printf("\033[31m   Quitter\n\n\033[00m");

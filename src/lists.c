@@ -76,7 +76,6 @@ int fillBooksInLibrary(FILE * file, library_t * curLib, int categorySize) {
 
 			if (curLib->begBooks == NULL) {
 				curLib->begBooks = elemBooks;
-				curBooks = elemBooks;
 			} else {
 				curBooks->next = elemBooks;
 			}
@@ -129,10 +128,9 @@ void displayLibrary(library_t const * curLib) {
 }
 
 
-void freeAllLists(library_t ** library, borrowings_t ** borrowings) {
-	library_t    * curLib    = *library;    /*Pointeur courant sur la bibliothèque*/
-	books_t      * curBooks  = NULL;        /*Pointeur courant sur la liste des livres d'une catégorie*/
-	borrowings_t * curBorrow = *borrowings; /*Pointeur courant sur la liste des emprunts*/
+void freeLibrary(library_t ** library) {
+	library_t * curLib   = *library;  /*Pointeur courant sur la bibliothèque*/
+	books_t   * curBooks = NULL;      /*Pointeur courant sur la liste des livres d'une catégorie*/
 
 	/*Libération de la bibliothèque*/
 	while (*library != NULL) {
@@ -144,17 +142,10 @@ void freeAllLists(library_t ** library, borrowings_t ** borrowings) {
 			free(curLib->begBooks);
 			curLib->begBooks = curBooks;
 		}
-		
+
 		/*Libération des catégories*/
 		curLib = curLib->next;
 		free(*library);
 		*library = curLib;
-	}
-
-	/*Libération de la liste des emprunts*/
-	while (*borrowings != NULL) {
-		curBorrow = curBorrow->next;
-		free(*borrowings);
-		*borrowings = curBorrow;
 	}
 }

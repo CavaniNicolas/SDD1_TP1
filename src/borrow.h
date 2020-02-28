@@ -4,8 +4,8 @@
 /*                                                                             */
 /* --------------------------------------------------------------------------- */
 
-#ifndef empruntsH
-#define empruntsH
+#ifndef borrowH
+#define borrowH
 
 
 /* ---------------------------------------------------------------------------- */
@@ -113,6 +113,17 @@ void displayBorrowingsBeforeDate(borrowings_t const *, char[9]);
 
 
 /* ---------------------------------------------------------------------- */
+/* createFilename  Remplie la chaine de caractères passée en paramètre    */
+/*                 avec la date et l'heure à laquelle est créé le fichier */
+/*                                                                        */
+/* En entrée:  filename : chaine de caractères                            */
+/*                                                                        */
+/* En sortie:  void                                                       */
+/* ---------------------------------------------------------------------- */
+void createFilename(char *);
+
+
+/* ---------------------------------------------------------------------- */
 /* saveBorrowingsInFile   Sauvegarde les emprunts dans un fichier pouvant */
 /*                        être lu par borrowBook()                        */
 /*                                                                        */
@@ -137,6 +148,16 @@ void saveBorrowingsInFile(char *, library_t const *, borrowings_t const * curBor
 /* En sortie:  void                                                       */
 /* ---------------------------------------------------------------------- */
 void findCategoryName(library_t const *, int, char[4]);
+
+
+/* -------------------------------------------------------------------- */
+/* freeBorrowings         Libère la mémoire                             */
+/*                                                                      */
+/* En entrée:  borrowings : pointeur sur la liste emprunts (par adresse)*/
+/*                                                                      */
+/* En sortie:  void                                                     */
+/* -------------------------------------------------------------------- */
+void freeBorrowings(borrowings_t ** borrowings);
 
 
 #endif

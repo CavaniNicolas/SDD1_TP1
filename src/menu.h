@@ -10,13 +10,46 @@
 
 /* ---------------------------------------------------------------------- */
 /* menu        Fonction de menu (graphique)                               */
+/*             On reste dans cette fonction tant qu'on ne choisi pas 0    */
 /*                                                                        */
 /* En entrée:  library    : pointeur sur la bibliothèque (par adresse)    */
 /*             borrowings : pointeur sur la liste emprunts (par adresse)  */
 /*                                                                        */
-/* En sortie:  int : On reste dans le menu tant que menu ne renvoie pas 0 */
+/* En sortie:  void                                                       */
 /* ---------------------------------------------------------------------- */
-int menu(library_t **, borrowings_t **);
+void menu(library_t **, borrowings_t **);
+
+
+/* ---------------------------------------------------------------------- */
+/* menuChoice3      Action à executer lors du choix 3 dans le menu        */
+/*                                                                        */
+/* En entrée:  library    : pointeur sur la bibliothèque (par valeur)     */
+/*             borrowings : pointeur sur la liste emprunts (par adresse)  */
+/*                                                                        */
+/* En sortie:  void                                                       */
+/* ---------------------------------------------------------------------- */
+void menuChoice3(library_t *, borrowings_t **);
+
+
+/* ---------------------------------------------------------------------- */
+/* menuChoice4      Action à executer lors du choix 4 dans le menu        */
+/*                                                                        */
+/* En entrée:  borrowings : pointeur sur la liste emprunts (par valeur)   */
+/*                                                                        */
+/* En sortie:  void                                                       */
+/* ---------------------------------------------------------------------- */
+void menuChoice4(borrowings_t *);
+
+
+/* -------------------------------------------------------------------- */
+/* remove_endstr_n        Supprime le caractère \n de fin de chaine     */
+/*                        si il existe                                  */
+/*                                                                      */
+/* En entrée:  line : chaine de caractères                              */
+/*                                                                      */
+/* En sortie:  void                                                     */
+/* -------------------------------------------------------------------- */
+void remove_endstr_n(char * line);
 
 
 /* ------------------------------------------------ */
@@ -38,17 +71,6 @@ void emptyBuffer();
 /* En sortie:  int  : 1 si reussi (format de la date conforme), 0 sinon */
 /* -------------------------------------------------------------------- */
 int isDateInputCorrect(char[9]);
-
-
-/* ---------------------------------------------------------------------- */
-/* createFilename  Remplie la chaine de caractères passée en paramètre    */
-/*                 avec la date et l'heure à laquelle est créé le fichier */
-/*                                                                        */
-/* En entrée:  filename : chaine de caractères                            */
-/*                                                                        */
-/* En sortie:  void                                                       */
-/* ---------------------------------------------------------------------- */
-void createFilename(char *);
 
 
 /* ------------------------------------------------------------------------ */

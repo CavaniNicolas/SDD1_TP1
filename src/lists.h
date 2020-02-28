@@ -4,8 +4,8 @@
 /*                                                                             */
 /* --------------------------------------------------------------------------- */
 
-#ifndef listesH
-#define listesH
+#ifndef listsH
+#define listsH
 
 
 /* -------------------------------------------------------------------- */
@@ -14,8 +14,7 @@
 /* En entrée:  filename : nom du fichier à lire pour remplir la liste   */
 /*             library  : pointeur sur la bibliothèque (par adresse)    */
 /*                                                                      */
-/*                                                                      */
-/* En sortie:  void                                                     */
+/* En sortie:  int : Retour d'erreur, 1 si reussi, 0 sinon              */
 /* -------------------------------------------------------------------- */
 int createLibrary(char *, library_t **);
 
@@ -28,7 +27,7 @@ int createLibrary(char *, library_t **);
 /*             curLib       : pointeur courant sur la bibliothèque (par valeur) */
 /*             categorySize : entier, nombre de livres dans la catégorie        */
 /*                                                                              */
-/* En sortie:  void                                                             */
+/* En sortie:  int : Retour d'erreur, 1 si reussi, 0 sinon                      */
 /* ---------------------------------------------------------------------------- */
 int fillBooksInLibrary(FILE *, library_t *, int);
 
@@ -55,14 +54,13 @@ void remove_endstr_r_windows(char *);
 
 
 /* -------------------------------------------------------------------- */
-/* freeAllLists    Libère la mémoire                                    */
+/* freeLibrary            Libère la mémoire                             */
 /*                                                                      */
-/* En entrée:  library    : pointeur sur la bibliothèque (par adresse)  */
-/*             borrowings : pointeur sur la liste emprunts (par adresse)*/
+/* En entrée:  library : pointeur sur la bibliothèque (par adresse)     */
 /*                                                                      */
 /* En sortie:  void                                                     */
 /* -------------------------------------------------------------------- */
-void freeAllLists(library_t **, borrowings_t **);
+void freeLibrary(library_t **);
 
 
 #endif

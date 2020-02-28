@@ -7,6 +7,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+#include <dirent.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include "common.h"
 #include "borrow.h"
 
@@ -106,7 +110,7 @@ void insertBorrowing(borrowings_t ** borrowings, books_t * bookBorrowed, char da
 			}
 		}
 
-	// } else { Livre de la liste à emprunter inexistant }
+	/*else : Livre de la liste à emprunter inexistant*/
 	}
 }
 
@@ -171,22 +175,13 @@ void deleteBorrowing(borrowings_t ** borrowings, int bookNb) {
 
 
 void isBorrowedToFalse(library_t * curLib, char category[4], int bookNb) {
-	books_t * curBooks = NULL; /*Pointeur courant sur la liste des livres d'une catégorie*/
+	/*curBooks : Pointeur courant sur la liste des livres d'une catégorie*/
 
 	/*Cherche le livre rendu dans la bibliothèque*/
-	while (curLib != NULL && strcmp(curLib->category,category)) {
-		curLib = curLib->next;
-	}
-	if (curLib != NULL) {
-		curBooks = curLib->begBooks;
-
-		while (curBooks != NULL && curBooks->bookNb != bookNb) {
-			curBooks = curBooks->next;
-		}
-	}
+	books_t * curBooks = isBookInLibrary(curLib, category, bookNb);
 
 	/*Modifie la valeur de isBorrowed dans la bibliothèque*/
-	if (curBooks->bookNb == bookNb) {
+	if (curBooks != NULL && curBooks->bookNb == bookNb) {
 		curBooks->isBorrowed = false;
 	}
 }
@@ -208,7 +203,29 @@ void displayBorrowingsBeforeDate(borrowings_t const * curBorrow, char date[9]) {
 }
 
 
+void createFilename(char * filename) {
+	int h, min, s, day, month, year;
+	time_t now;
+
+	time(&now);
+
+	mkdir("borrowings", 777);
+
+	struct tm *local = localtime(&now);
+	h     = local->tm_hour;
+	min   = local->tm_min;
+	s     = local->tm_sec;
+	day   = local->tm_mday;
+	month = local->tm_mon + 1;
+	year  = local->tm_year + 1900;
+
+	snprintf(filename, 40, "borrowings/%d-%02d-%02d_%02dh%02d'%02d''", year, month, day, h, min, s);
+}
+
+
 void saveBorrowingsInFile(char * filename, library_t const * library, borrowings_t const * curBorrow) {
+	createFilename(filename);
+
 	FILE * file = NULL;  /*Fichier*/
 	file = fopen(filename, "w");
 	char category[4];    /*Categorie du livre à sauvegarder*/
@@ -250,5 +267,17 @@ void findCategoryName(library_t const * curLib, int bookNb, char category[4]) {
 		}
 
 		curLib = curLib->next;
+	}
+}
+
+
+void freeBorrowings(borrowings_t ** borrowings) {
+	borrowings_t * curBorrow = *borrowings; /*Pointeur courant sur la liste des emprunts*/
+
+	/*Libération de la liste des emprunts*/
+	while (*borrowings != NULL) {
+		curBorrow = curBorrow->next;
+		free(*borrowings);
+		*borrowings = curBorrow;
 	}
 }
