@@ -1,3 +1,9 @@
+/* --------------------------------------------------------------------------- */
+/*  borrow.h                                                                   */
+/*             contient les déclarations des fonctions du fichier borrow.c     */
+/*                                                                             */
+/* --------------------------------------------------------------------------- */
+
 #ifndef empruntsH
 #define empruntsH
 

@@ -1,3 +1,8 @@
+/* --------------------------------------------------------------------------- */
+/*  menu.c    contient les fonctions associées au menu,                        */
+/*            interface utilisateur appelant les fonctions des autres fichiers */
+/*                                                                             */
+/* --------------------------------------------------------------------------- */
 
 #include <stdio.h>
 #include <stdlib.h>
