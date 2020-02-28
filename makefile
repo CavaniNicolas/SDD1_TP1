@@ -9,6 +9,7 @@ DEP = $(patsubst %.o,%.d,$(OBJ))
 .PHONY: all
 all: bin/executable
 	@echo "Executer avec ./bin/executable"
+	@mkdir -p "borrowings"
 
 #édition des liens
 bin/executable: $(OBJ)
