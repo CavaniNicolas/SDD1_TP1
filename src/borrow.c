@@ -9,6 +9,7 @@
 #include <string.h>
 #include <time.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 #include <sys/dir.h>
 #include "common.h"
 #include "borrow.h"
