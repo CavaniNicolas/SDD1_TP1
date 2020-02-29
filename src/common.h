@@ -6,7 +6,6 @@
 
 #ifndef commonH
 #define commonH
-#include <stdbool.h>
 
 /* --------------------------------------------------------------------------- */
 /*            Structure pour la liste des catégories (bibliothèque)            */
@@ -15,7 +14,7 @@
 typedef struct books {
 	int bookNb;
 	char title[11];
-	bool isBorrowed;
+	char isBorrowed;
 	struct books * next;
 }books_t;
 
