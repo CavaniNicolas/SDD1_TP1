@@ -88,8 +88,8 @@ void insertBorrowing(borrowings_t ** borrowings, books_t * bookBorrowed, char da
 	borrowings_t * elemBorrow = NULL;        /*Element alloué*/
 
 	/*Modifie la valeur de isBorrowed dans la bibliothèque*/
-	if (bookBorrowed != NULL && bookBorrowed->isBorrowed != true) {
-		bookBorrowed->isBorrowed = true;
+	if (bookBorrowed != NULL && bookBorrowed->isBorrowed != 1) {
+		bookBorrowed->isBorrowed = 1;
 
 		elemBorrow = (borrowings_t *)malloc(sizeof(borrowings_t));
 
@@ -182,7 +182,7 @@ void isBorrowedToFalse(library_t * curLib, char category[4], int bookNb) {
 
 	/*Modifie la valeur de isBorrowed dans la bibliothèque*/
 	if (curBooks != NULL && curBooks->bookNb == bookNb) {
-		curBooks->isBorrowed = false;
+		curBooks->isBorrowed = 0;
 	}
 }
 
