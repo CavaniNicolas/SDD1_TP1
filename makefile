@@ -8,7 +8,7 @@ DEP = $(patsubst %.o,%.d,$(OBJ))
 
 .PHONY: all
 all: bin/executable
-	@echo "Executer avec ./bin/executable"
+	@echo "Executer avec ./bin/executable text_files/library.txt"
 	@mkdir -p "borrowings"
 
 #édition des liens
