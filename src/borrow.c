@@ -191,7 +191,7 @@ void displayBorrowingsBeforeDate(borrowings_t const * curBorrow, char date[9]) {
 	int i = 0; /*Compteur*/
 
 	printf("\n");
-	while (curBorrow != NULL && atoi(curBorrow->returnDate) < atoi(date)) {
+	while (curBorrow != NULL && atoi(curBorrow->returnDate) <= atoi(date)) {
 		printf("   Livre numero : \033[35m%d\033[00m à rendre avant le \033[35m%s\033[00m\n", curBorrow->bookNb, curBorrow->returnDate);
 		curBorrow = curBorrow->next;
 		i++;
