@@ -1,0 +1,10 @@
+POL 3
+11 le tueur
+15 la victime
+17 le truand
+BD 2
+21 tintin
+23 titeuf
+JAP 0
+CAL 1
+28 caligros
