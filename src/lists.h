@@ -19,30 +19,29 @@
 int createLibrary(char *, library_t **);
 
 
-/* ---------------------------------------------------------------------------- */
-/* createCategory   Creer une categorie et l'ajoute dans la bibliothèque        */
-/*                                                                              */
-/* En entrée:  library  : pointeur sur la bibliothèque (par adresse)            */
-/*             category : nom de la catégorie en moins de 10 caractère          */
-/*                                                                              */
-/* En sortie:  int : Retour d'erreur, 1 si reussi, 0 sinon                      */
-/* ---------------------------------------------------------------------------- */
-int createCategory (library_t **, char [4]);
+/* ------------------------------------------------------------------------------- */
+/* createCategory   Creer une categorie et l'ajoute dans la bibliothèque (en tête) */
+/*                                                                                 */
+/* En entrée:  library  : pointeur sur la bibliothèque (par adresse)               */
+/*             category : nom de la catégorie en 3 caractères max                  */
+/*                                                                                 */
+/* En sortie:  int : Retour d'erreur, 1 si reussi, 0 sinon                         */
+/* ------------------------------------------------------------------------------- */
+int createCategory (library_t **, char[4]);
 
 
-/* ---------------------------------------------------------------------------- */
-/* createBook   Creer un livre et l'ajoute à la fin de la liste des livres      */
-/*              contenue dans la catégorie                                      */
-/*                                                                              */
-/* En entrée:   library  : pointeur sur la bibliothèque (par adresse)           */
-/*              lastBook : pointeur sur le dernier livre de la categorie        */
-/*                         (par adresse)                                        */
-/*              bookNb   : numero du livre                                      */
-/*              title    : nom du livre                                         */
-/*                                                                              */
-/* En sortie:  int : Retour d'erreur, 1 si reussi, 0 sinon                      */
-/* ---------------------------------------------------------------------------- */
-int createBook(library_t **, books_t **, int, char [11]);
+/* ----------------------------------------------------------------------------------- */
+/* createBook   Creer un livre et l'ajoute à la fin de la liste des livres             */
+/*              de la même catégorie                                                   */
+/*                                                                                     */
+/* En entrée:   library  : pointeur sur la bibliothèque (par adresse)                  */
+/*              lastBook : pointeur sur le dernier livre de la categorie (par adresse) */
+/*              bookNb   : entier, numero du livre                                     */
+/*              title    : chaine de caractères, nom du livre                          */
+/*                                                                                     */
+/* En sortie:  int : Retour d'erreur, 1 si reussi, 0 sinon                             */
+/* ----------------------------------------------------------------------------------- */
+int createBook(library_t **, books_t **, int, char[11]);
 
 
 /* -------------------------------------------------------------------- */
