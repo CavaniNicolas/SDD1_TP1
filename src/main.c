@@ -26,7 +26,8 @@ int main(int argc, char ** argv) {
 		char           filename[22];      /*Nom du fichier à appeler*/
 		char           filePath[40];      /*Chemin vers le fichier à appeler*/
 
-		printf("\n\033[33m   | \033[36mCréer la liste Bibliothèque et actualiser les livres empruntés ?\033[33m |\n\t\033[32mOui  :1\n\t\033[31mNon  :0\033[00m\n\t\t-: ");
+		printf("\n\033[33m   | \033[36mCréer la liste Bibliothèque et actualiser les livres empruntés ?\033[33m |\n" \
+			   "\t\033[32mOui  :1\n\t\033[31mNon  :0\033[00m\n\t\t-: ");
 		scanf("%d",&isStarted);
 
 		/*Le programme se lance*/
@@ -37,7 +38,8 @@ int main(int argc, char ** argv) {
 			printf("   Création de la bibliothèque depuis : \033[32m%s\033[00m\n", argv[1]);
 
 			if (library != NULL) {
-				/*Cherche s'il existe un fichier des emprunts dans le dossier borrowings et sélectionne le plus récent*/
+				/*Cherche s'il existe un fichier des emprunts dans le dossier borrowings*/
+				/*et sélectionne le plus récent*/
 				findFilenameMax(filename);
 
 				/*Créer le bon filePath à partir de filename*/
