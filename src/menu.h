@@ -52,16 +52,6 @@ void menuChoice4(borrowings_t *);
 void remove_endstr_n(char * line);
 
 
-/* ------------------------------------------------ */
-/* emptyBuffer       Vide le Buffer                 */
-/*                                                  */
-/* En entrée:  void                                 */
-/*                                                  */
-/* En sortie:  void                                 */
-/* ------------------------------------------------ */
-void emptyBuffer();
-
-
 /* -------------------------------------------------------------------- */
 /* isDateInputCorrect    Verifie si la chaine passée en paramètre est   */
 /*                       une date de la forme AAAAMMJJ                  */

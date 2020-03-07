@@ -37,7 +37,7 @@ void menu(library_t ** library, borrowings_t ** borrowings) {
 		// scanf return le nombre d'arguments qu'elle a rempli (l'argument %n n'est pas pris en compte)
 		argNb = scanf("%n%d", &argNb, &choice);
 		// On vide le buffer dans le cas où autre chose qu'un int a été entré
-		emptyBuffer();
+		while (getchar () != '\n');
 
 		if (argNb == 1) {
 
@@ -206,9 +206,4 @@ void findFilenameMax(char filenameMax[22]) {
 		closedir(rep);
 
 	}
-}
-
-
-void emptyBuffer() {
-	while (getchar () != '\n');
 }
